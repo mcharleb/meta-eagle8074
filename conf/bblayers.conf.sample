@@ -11,7 +11,7 @@ BBLAYERS ?= " \
   ##OEROOT##/meta \
   ##OEROOT##/meta-yocto \
   ##OEROOT##/meta-qcom-bsp \
-  ##OEROOT##/meta-qcom-8074 \
+  ##OEROOT##/meta-eagle8074 \
   ##OEROOT##/meta-qcom-proprietary \
   ##OEROOT##/meta-qcom-drones \
   ##OEROOT##/meta-smartphone/meta-android \

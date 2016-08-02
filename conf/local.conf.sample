@@ -1,5 +1,5 @@
 # This sets the default machine to be qcom-bsp if no other machine is selected:
-MACHINE ??= "qcom-8074"
+MACHINE ??= "eagle8074"
 
 #
 # Where to place downloads
@@ -229,15 +229,7 @@ FETCHCMD_wget = "/usr/bin/env wget -t 2 -T 90 -nv --passive-ftp --no-check-certi
 #
 GCCVERSION = "4.9%"
 
-#
-# Multilib configuration
-#
-# This sets any packages preprended with lib32- to be built with
-# the armv7a tuning (32 bit) instead of 64 bit aarch.
-#
-#require conf/multilib.conf
-#MULTILIBS = "multilib:lib32"
-#DEFAULTTUNE_virtclass-multilib-lib32 = "armv7at-neon"
+DEFAULTTUNE = "armv7at-neon"
 
 # CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
 # track the version of this file when it was generated. This can safely be ignored if

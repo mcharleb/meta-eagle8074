@@ -17,5 +17,5 @@ else
 fi
 WS=$(readlink -f $scriptdir/../..)
 
-export TEMPLATECONF=${WS}/meta-qcom-8074/conf 
+export TEMPLATECONF=${WS}/meta-eagle8074/conf 
 source ${WS}/oe-init-build-env
