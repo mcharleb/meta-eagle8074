@@ -1,0 +1,15 @@
+
+============== BUILDING 8096 COMPLETE IMAGE: ==================
+
+build8x74
+
+Builds both the main 8x74 image and LK signed image.
+
+===============================================================
+
+
+Other common targets to build:
+    8x74-image - Main 8x74 image
+    lk - LK signed image
+    core-image-minimal - Minimal image with only a shell and basic apps
+    eagle-image - Eagle image (only if meta-qcom-drones is present)
