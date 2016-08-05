@@ -23,6 +23,8 @@ IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "syst
 
 inherit core-image
 
+TOOLCHAIN_TARGET_TASK_append = " kernel-devsrc"
+
 # delete the old image files that already exist
 python do_rootfs_prepend() {
     os.system("rm -rf ${DEPLOY_DIR_IMAGE}/*${PN}*")
