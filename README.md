@@ -31,7 +31,7 @@ This layer depends on:
 Prerequisites
 =============
 
-Workstation used for build must be a linux x86-64 with Ubuntu 14.04.
+Workstation used for build must be a linux x86-64 with Ubuntu 14.04 (or 16.04).
 Workstation must have a gcc 4.8 or latest with the support for both 64bit
 and 32bit c/c++ support.
 
@@ -76,9 +76,9 @@ Programming the OS image using `fastboot`
 =========================================
 
     $ fastboot erase boot
-    $ fastboot flash boot build/tmp/deploy/images/qcom-bsp/boot.img
+    $ fastboot flash boot build/tmp/deploy/images/eagle8074/boot.img
     $ fastboot erase system
-    $ fastboot flash system build/tmp/deploy/images/qcom-bsp/8x96-image-qcom-bsp.ext4
+    $ fastboot flash system build/tmp/deploy/images/eagle8074/eagle-image-eagle8074.ext4
 
 Programming the eagle image using `fastboot`
 ===============================================
@@ -96,7 +96,7 @@ To find the name of your sd card, you can type
 
 ##### All files are located in 
 
-    $ /prj/atlanticus/software/Excelsior/20160721-sdcard-boot-minimized/
+    TBD
     
 More documentation is also available at the above location.
 

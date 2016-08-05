@@ -202,8 +202,8 @@ BB_DISKMON_DIRS = "\
 # NOTE: You can set INITRAMFS_IMAGE in an image recipe, but
 #       INITRAMFS_IMAGE_BUNDLE can only be set in a conf file.
 #
-INITRAMFS_IMAGE = "qcom-initramfs-image"
-INITRAMFS_IMAGE_BUNDLE= "1"
+#INITRAMFS_IMAGE = "qcom-initramfs-image"
+#INITRAMFS_IMAGE_BUNDLE= "1"
 
 #
 # Qemu configuration

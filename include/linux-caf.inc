@@ -25,12 +25,13 @@ LINUX_VERSION_EXTENSION ?= "-caf-${LINUX_KERNEL_TYPE}"
 
 do_patch[depends] = "kern-tools-native:do_populate_sysroot"
 
-addtask kernel_configme before do_configure after do_patch
-
 # Pick up shared functions
 inherit kernel
 inherit kernel-caf
+require recipes-kernel/linux/linux-yocto.inc
 #require recipes-kernel/linux/linux-dtb.inc
+
+addtask kernel_configme before do_configure after do_patch
 
 B = "${WORKDIR}/linux-${MACHINE}-${LINUX_KERNEL_TYPE}-build"
 

@@ -98,5 +98,5 @@ do_compile_dtb() {
 addtask lk_mkimage after do_deploy and before do_package
 addtask compile_dtb after do_compile_kernelmodules before do_strip
 
-DEPENDS += "android-tools-native"
+DEPENDS += "android-tools"
 DEPENDS += "dtbtool-native"
