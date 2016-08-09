@@ -2,24 +2,29 @@
 # changes incompatibly
 LCONF_VERSION = "6"
 
+# FIXME Excelsior uses SOURCE, Eagle uses WORKSPACE, these need to be unified
 export SOURCE := "${@os.path.abspath(os.path.join(os.path.dirname(bb.data.getVar('FILE', d)),'../../..'))}"
+export WORKSPACE := ${SOURCE}
 
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
 BBLAYERS ?= " \
-  ##OEROOT##/meta \
-  ##OEROOT##/meta-yocto \
-  ##OEROOT##/meta-qcom-bsp \
-  ##OEROOT##/meta-eagle8074 \
-  ##OEROOT##/meta-qcom-proprietary \
-  ##OEROOT##/meta-qcom-drones \
-  ##OEROOT##/meta-smartphone/meta-android \
-  ##OEROOT##/meta-openembedded/meta-oe \
-  ##OEROOT##/meta-openembedded/meta-python \
-  ##OEROOT##/meta-openembedded/meta-networking \
+  ${TOPDIR}/../meta \
+  ${TOPDIR}/../meta-yocto \
+  ${TOPDIR}/../meta-qcom-bsp \
+  ${TOPDIR}/../meta-eagle8074 \
+  ${TOPDIR}/../meta-qti \
+  ${TOPDIR}/../meta-qti-prebuilt \
+  ${TOPDIR}/../meta-smartphone/meta-android \
+  ${TOPDIR}/../meta-qcom-proprietary \
+  ${TOPDIR}/../meta-qcom-drones \
+  ${TOPDIR}/../meta-smartphone/meta-android \
+  ${TOPDIR}/../meta-openembedded/meta-oe \
+  ${TOPDIR}/../meta-openembedded/meta-python \
+  ${TOPDIR}/../meta-openembedded/meta-networking \
   "
 BBLAYERS_NON_REMOVABLE ?= " \
-  ##OEROOT##/meta \
-  ##OEROOT##/meta-yocto \
+  ${TOPDIR}/../meta \
+  ${TOPDIR}/../meta-yocto \
   "

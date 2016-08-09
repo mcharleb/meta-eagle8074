@@ -6,11 +6,11 @@ LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=5a1abdab641eec675725c843f43f03af"
 HOMEPAGE = "https://www.codeaurora.org/gitweb/quic/la?p=kernel/lk.git"
 PROVIDES = "virtual/bootloader"
 FILESPATH =+ "${WORKSPACE}:"
-SRC_URI = "file://lk"
+SRC_URI = "file://bootable/bootloader/lk"
 
 PV       = "1.0"
 PR       = "r9"
-S = "${WORKDIR}/lk"
+S = "${WORKDIR}/bootable/bootloader/lk"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
