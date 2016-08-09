@@ -1,5 +1,6 @@
-#
-# Copyright (c) 2014,2015 The Linux Foundation.
+#!/bin/sh
+###############################################################################
+# Copyright (c) 2015, The Linux Foundation.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -31,35 +32,12 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#@TYPE: Machine
-##@NAME: eagle8074
-##@DESCRIPTION: Machine configuration for eagle8074
-MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
-require conf/machine/include/arm/arch-armv7a.inc
-#IMAGE_FSTYPES += "tar.bz2 ext4"
-#EXTRA_IMAGECMD_ext4 ?= "-i 4096 -b 4096"
-#IMAGE_ROOTFS_SIZE ?= "16384"
-KERNEL_IMAGETYPE ?= "zImage"
-#KERNEL_DEVICETREE ?= ""
-KERNEL_BASE ?= "0x80200000"
-PAGE_SIZE ?= "2048"
-RAMDISK_OFFSET ?= "0x02D00000"
-#USE_VT = "0"
+###############################################################################
 
-LK_ROOT_DEV = "/dev/mmcblk0p13"
-LK_CMDLINE_OPTIONS += "prim_display=hdmi_msm"
+board_model=`cat /sys/devices/soc0/board_model`
+image_version=`cat /sys/devices/soc0/image_version | cut -d':' -f2`
+hw_platform=`cat /sys/devices/soc0/hw_platform`
 
-KERNEL_CMDLINE ?= "console=ttyHSL0,115200,n8 root=${LK_ROOT_DEV} rw rootwait ${LK_CMDLINE_OPTIONS}"
-
-PREFERRED_PROVIDER_virtual/kernel ?= "linux-qr-eagle8074"
-PREFERRED_PROVIDER_kernel-module-wlan ?= "compat-wireless"
-PREFERRED_PROVIDER_kernel-module-cfg80211 ?= "linux-qr-eagle8074"
-
-QRLINUX_DTB = "apq8074pro-ab-eagle.dtb \
-    apq8074pro-ab-eagle-p2.dtb"
-
-FEATURE_PACKAGES_eagle8074-kernelmods = "compat-wireless kernel-module-cfg80211"
-#FEATURE_PACKAGES_ethernet-eagle8074 = "ethernet-eagle8074"
-
-IMAGE_FEATURES += "eagle8074-kernelmods"
-
+echo "platform=$hw_platform"
+echo "board=$board_model"
+echo "sbl1_ver=$image_version"

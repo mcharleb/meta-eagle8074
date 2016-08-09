@@ -1,0 +1,89 @@
+From 1ee6aa334703e3d1914d71fa76039ab60866d373 Mon Sep 17 00:00:00 2001
+From: Gustavo Solaira <gustavos@codeaurora.org>
+Date: Mon, 13 Jul 2015 19:01:37 -0700
+Subject: [PATCH 1/3] Eagle hardware support
+
+---
+ target/msm8974/init.c   | 40 +++++++++++++++++++++++++++++++++++-----
+ target/msm8974/rules.mk |  2 +-
+ 2 files changed, 36 insertions(+), 6 deletions(-)
+
+diff --git a/target/msm8974/init.c b/target/msm8974/init.c
+index 304bd45..ff2f7bb 100644
+--- a/target/msm8974/init.c
++++ b/target/msm8974/init.c
+@@ -131,6 +131,7 @@ static int target_is_8974()
+ /* Return 1 if vol_up pressed */
+ static int target_volume_up()
+ {
++#if 0
+ 	uint8_t status = 0;
+ 	struct pm8x41_gpio gpio;
+ 
+@@ -156,16 +157,45 @@ static int target_volume_up()
+ 	pm8x41_gpio_get(5, &status);
+ 
+ 	return !status; /* active low */
++#else
++        /* No vol up on eagle */
++        return 0;
++#endif
+ }
+ 
+ /* Return 1 if vol_down pressed */
+ uint32_t target_volume_down()
+ {
+-	/* Volume down button is tied in with RESIN on MSM8974. */
+-	if (target_is_8974() && (pmic_ver == PM8X41_VERSION_V2))
+-		return pm8x41_v2_resin_status();
+-	else
+-		return pm8x41_resin_status();
++        uint8_t status = 0;
++        // ATL-TODO: Replace with Eagle platform ID
++        if (1) 
++        {
++                struct pm8x41_gpio gpio;
++
++                /* Configure the GPIO */
++                gpio.direction = PM_GPIO_DIR_IN;
++                gpio.function  = 0;
++                gpio.pull      = PM_GPIO_PULL_UP_30;
++                gpio.vin_sel   = 2;
++
++                pm8x41_gpio_config(2, &gpio);
++
++                /* Wait for the pmic gpio config to take effect */
++                thread_sleep(1);
++
++                /* Get status of P_GPIO_2 */
++                pm8x41_gpio_get(2, &status);
++
++                status = !status; /* active low */
++        } else {
++                /* Volume down button is tied in with RESIN on MSM8974. */
++                if (target_is_8974() && (pmic_ver == PM8X41_VERSION_V2))
++                        status = pm8x41_v2_resin_status();
++                else
++                        status = pm8x41_resin_status();
++        }
++
++        return status;
+ }
+ 
+ static void target_keystatus()
+diff --git a/target/msm8974/rules.mk b/target/msm8974/rules.mk
+index ab9a431..e889017 100644
+--- a/target/msm8974/rules.mk
++++ b/target/msm8974/rules.mk
+@@ -15,7 +15,7 @@ KERNEL_ADDR      := BASE_ADDR+0x00008000
+ RAMDISK_ADDR     := BASE_ADDR+0x01000000
+ SCRATCH_ADDR     := 0x11000000
+ 
+-DEFINES += DISPLAY_SPLASH_SCREEN=1
++DEFINES += DISPLAY_SPLASH_SCREEN=0
+ DEFINES += DISPLAY_TYPE_MIPI=1
+ DEFINES += DISPLAY_TYPE_DSI6G=1
+ 
+-- 
+2.4.2
+
