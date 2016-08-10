@@ -2,15 +2,15 @@ inherit deploy
 
 DESCRIPTION = "Little Kernel bootloader"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${S}/LICENSE;md5=5a1abdab641eec675725c843f43f03af"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=5a1abdab641eec675725c843f43f03af"
 HOMEPAGE = "https://www.codeaurora.org/gitweb/quic/la?p=kernel/lk.git"
 PROVIDES = "virtual/bootloader"
-FILESPATH =+ "${WORKSPACE}:"
+FILESPATH =+ "${SOURCE}:"
 SRC_URI = "file://bootable/bootloader/lk"
 
 PV       = "1.0"
 PR       = "r9"
-S = "${WORKDIR}/bootable/bootloader/lk"
+S = "${WORKDIR}/bootable/lk"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 

@@ -12,12 +12,13 @@ PR = "r0"
 
 PACKAGES = "${PN}"
 
-inherit autotools
+inherit autotools pkgconfig
 
 DEPENDS += "android-tools"
 DEPENDS += "libhardware-headers"
 DEPENDS += "system-headers"
 DEPENDS += "glib-2.0"
+DEPENDS += "pkgconfig-native"
 
 DEBIAN_NOAUTONAME_${PN} = "1"
 

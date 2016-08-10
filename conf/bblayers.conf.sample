@@ -10,21 +10,21 @@ BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
 BBLAYERS ?= " \
-  ${TOPDIR}/../meta \
-  ${TOPDIR}/../meta-yocto \
-  ${TOPDIR}/../meta-qcom-bsp \
-  ${TOPDIR}/../meta-eagle8074 \
-  ${TOPDIR}/../meta-qti \
-  ${TOPDIR}/../meta-qti-prebuilt \
-  ${TOPDIR}/../meta-smartphone/meta-android \
-  ${TOPDIR}/../meta-qcom-proprietary \
-  ${TOPDIR}/../meta-qcom-drones \
-  ${TOPDIR}/../meta-smartphone/meta-android \
-  ${TOPDIR}/../meta-openembedded/meta-oe \
-  ${TOPDIR}/../meta-openembedded/meta-python \
-  ${TOPDIR}/../meta-openembedded/meta-networking \
+  ${COREBASE}/meta \
+  ${COREBASE}/meta-yocto \
+  ${COREBASE}/meta-qcom-bsp \
+  ${COREBASE}/meta-eagle8074 \
+  ${COREBASE}/meta-qti \
+  ${COREBASE}/meta-qti-prebuilt \
+  ${COREBASE}/meta-smartphone/meta-android \
+  ${COREBASE}/meta-qcom-proprietary \
+  ${COREBASE}/meta-qcom-drones \
+  ${COREBASE}/meta-smartphone/meta-android \
+  ${COREBASE}/meta-openembedded/meta-oe \
+  ${COREBASE}/meta-openembedded/meta-python \
+  ${COREBASE}/meta-openembedded/meta-networking \
   "
 BBLAYERS_NON_REMOVABLE ?= " \
-  ${TOPDIR}/../meta \
-  ${TOPDIR}/../meta-yocto \
+  ${COREBASE}/meta \
+  ${COREBASE}/meta-yocto \
   "
