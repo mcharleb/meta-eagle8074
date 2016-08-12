@@ -1,3 +1,5 @@
+inherit core-image
+
 SUMMARY = "8x74 default image"
 
 DEPENDS += "lk"
@@ -43,12 +45,8 @@ IMAGE_INSTALL += "power-hal"
 #IMAGE_INSTALL += "recovery-script"
 #IMAGE_INSTALL += "signapk-java"
 
-
-
 IMAGE_ROOTFS_SIZE = "524288"
 IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "" ,d)}"
-
-inherit core-image
 
 TOOLCHAIN_TARGET_TASK_append = " kernel-devsrc"
 

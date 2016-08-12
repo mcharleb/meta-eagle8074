@@ -19,8 +19,8 @@ inherit  autotools
 
 DEPENDS += "system-headers"
 
-CFLAGS += "-I${STAGING_INCDIR}/linux-headers/usr/include"
-CFLAGS += "-I${STAGING_INCDIR}/linux-headers/usr/include/media"
+CFLAGS += "-I/usr/src/${MACHINE}/include"
+CFLAGS += "-I/usr/src/${MACHINE}/include/media"
 
 INSANE_SKIP_${PN} = "dev-so"
 INSANE_SKIP_${PN} += "installed-vs-shipped"

@@ -1,3 +1,5 @@
+inherit autotools pkgconfig
+
 DESCRIPTION = "HAL libraries for camera"
 LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/${LICENSE};md5=550794465ba0ec5312d6919e203a55f9"
@@ -7,12 +9,11 @@ FILESPATH =+ "${WORKSPACE}:"
 SRC_URI = "file://hardware/qcom/camera/"
 
 S = "${WORKDIR}/hardware/qcom/camera"
+B = "${S}"
 PR = "r1"
 
 PACKAGES = "${PN}"
 PACKAGES += "${PN}-dbg"
-
-inherit autotools
 
 # Need the kernel headers
 DEPENDS += "virtual/kernel"
@@ -24,18 +25,20 @@ DEPENDS += "system-headers"
 DEPENDS += "frameworks-headers"
 DEPENDS += "frameworks-av"
 DEPENDS += "mm-video-oss-headers"
+DEPENDS += "libjpeg-turbo"
+DEPENDS += "pkgconfig-native"
 
 CFLAGS += "-I./mm-camera-interface"
-CFLAGS += "-I${STAGING_INCDIR}/linux-headers/usr/include"
-CFLAGS += "-I${STAGING_INCDIR}/linux-headers/usr/include/media"
+CFLAGS += "-I/usr/src/${MACHINE}/include"
+CFLAGS += "-I/usr/src/${MACHINE}/include/media"
 CFLAGS += "-I${STAGING_INCDIR}/omx"
 
-CXXFLAGS += "-I${STAGING_INCDIR}/linux-headers/usr/include"
+CXXFLAGS += "-I/usr/src/${MACHINE}/include"
 CXXFLAGS += "-I${STAGING_INCDIR}/glib-2.0"
 CXXFLAGS += "-I${STAGING_LIBDIR}/glib-2.0/include"
 CXXFLAGS += "-I${STAGING_INCDIR}/omx"
 
-EXTRA_OECONF_append = " --with-sanitized-headers=${STAGING_INCDIR}/linux-headers/include"
+EXTRA_OECONF_append = " --with-sanitized-headers=/usr/src/${MACHINE}/include"
 EXTRA_OECONF_append = " --enable-target=msm8974"
 
 

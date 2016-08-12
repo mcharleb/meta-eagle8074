@@ -22,9 +22,9 @@ DEPENDS += "libhardware-headers"
 DEPENDS += "system-headers"
 DEPENDS += "frameworks-headers"
 
-CXXFLAGS += "-I${STAGING_INCDIR}/linux-headers/usr/include"
+CXXFLAGS += "-I/usr/src/${MACHINE}/include"
 
-EXTRA_OECONF_append = " --with-sanitized-headers=${STAGING_INCDIR}/linux-headers/include"
+EXTRA_OECONF_append = " --with-sanitized-headers=/usr/src/${MACHINE}/include"
 EXTRA_OECONF_append = " --enable-target=msm8974"
 
 INSANE_SKIP_${PN} = "dev-so"

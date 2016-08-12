@@ -1,5 +1,6 @@
 # This file was derived from oe-core/meta-qr-linux/meta-som8064/recipes-kernel/linux/linux-qr-som8064.bb
 
+inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
 DEPENDS += "dtc-native dtbtool-native mkbootimg-native"
@@ -53,6 +54,14 @@ do_deploy_append() {
 
 # FIXME Unsupported in the Jethro version of mkbootimg
 #	--dt "${DEPLOYDIR}/devicetree.img" \
+}
+
+do_install_append() {
+     make headers_install INSTALL_HDR_PATH="${D}/usr/src/${MACHINE}"
+}
+
+sysroot_stage_all_append() {
+         sysroot_stage_dir "${D}/usr/src/${MACHINE}" "${SYSROOT_DESTDIR}/usr/src/${MACHINE}"
 }
 
 addtask do_removegit after do_unpack before do_kernel_checkout
