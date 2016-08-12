@@ -28,8 +28,7 @@ FILES_${PN} = "\
 INSANE_SKIP_${PN} = "dev-so"
 INSANE_SKIP_${PN} += "installed-vs-shipped"
 
-EXTRA_OECONF = "--with-sanitized-headers=/usr/src/${MACHINE}/include"
-CPPFLAGS_append += "-I/usr/src/${MACHINE}/include"
+EXTRA_OECONF = "--with-sanitized-headers=${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 CPPFLAGS_append += "-I${WORKSPACE}/hardware/qcom/display/libcopybit"
 CPPFLAGS_append += "-I${WORKSPACE}/hardware/qcom/display/libgralloc"
 CPPFLAGS_append += "-I${WORKSPACE}/adreno200/include/private/C2D"

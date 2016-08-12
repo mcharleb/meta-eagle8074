@@ -28,17 +28,16 @@ DEPENDS += "mm-video-oss-headers"
 DEPENDS += "libjpeg-turbo"
 DEPENDS += "pkgconfig-native"
 
+#CFLAGS += "-I${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 CFLAGS += "-I./mm-camera-interface"
-CFLAGS += "-I/usr/src/${MACHINE}/include"
-CFLAGS += "-I/usr/src/${MACHINE}/include/media"
 CFLAGS += "-I${STAGING_INCDIR}/omx"
 
-CXXFLAGS += "-I/usr/src/${MACHINE}/include"
+#CXXFLAGS += "-I${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 CXXFLAGS += "-I${STAGING_INCDIR}/glib-2.0"
 CXXFLAGS += "-I${STAGING_LIBDIR}/glib-2.0/include"
 CXXFLAGS += "-I${STAGING_INCDIR}/omx"
 
-EXTRA_OECONF_append = " --with-sanitized-headers=/usr/src/${MACHINE}/include"
+EXTRA_OECONF_append = " --with-sanitized-headers=${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 EXTRA_OECONF_append = " --enable-target=msm8974"
 
 
