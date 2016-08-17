@@ -1,6 +1,9 @@
-#
-# Copyright (c) 2014,2015 The Linux Foundation.
-# All rights reserved.
+#!/bin/sh
+###############################################################################
+# Author: Rahul Anand (ranand@codeaurora.org)
+# 
+# This script copies the firmware from a target-specific location to
+## where the kernel expects it (/lib/firmware)
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted (subject to the limitations in the
@@ -30,39 +33,53 @@
 # WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-#
-#@TYPE: Machine
-##@NAME: eagle8074
-##@DESCRIPTION: Machine configuration for eagle8074
-MACHINE_EXTRA_RRECOMMENDS = " kernel-modules"
-require conf/machine/include/arm/arch-armv7a.inc
-#IMAGE_FSTYPES += "tar.bz2 ext4"
-#EXTRA_IMAGECMD_ext4 ?= "-i 4096 -b 4096"
-#IMAGE_ROOTFS_SIZE ?= "16384"
-KERNEL_IMAGETYPE ?= "zImage"
-#KERNEL_DEVICETREE ?= ""
-KERNEL_BASE ?= "0x80200000"
-PAGE_SIZE ?= "2048"
-RAMDISK_OFFSET ?= "0x02D00000"
-#USE_VT = "0"
+# 
+###############################################################################
 
-LK_ROOT_DEV = "/dev/mmcblk0p13"
-LK_CMDLINE_OPTIONS += "prim_display=hdmi_msm"
+QRL_COMMON_INCS_DIR=/usr/local/qr-linux
+# Include common files
+. ${QRL_COMMON_INCS_DIR}/qrl-mac-fw-inc.sh
 
-KERNEL_CMDLINE ?= "console=ttyHSL0,115200,n8 root=${LK_ROOT_DEV} rw rootwait ${LK_CMDLINE_OPTIONS}"
 
-PREFERRED_PROVIDER_virtual/kernel ?= "linux-eagle8074"
-PREFERRED_PROVIDER_kernel-module-wlan ?= "compat-wireless"
-PREFERRED_PROVIDER_kernel-module-cfg80211 ?= "linux-eagle8074"
-PREFERRED_VERSION_android-tools = "1.1.36"
-PREFERRED_VERSION_live555 = "1.0"
+usage() {
+    prog=`basename $0` 1>&2
+    echo "$prog : $*"
+    echo "usage: $prog -h -f -m"
+    echo "       -h: Help"
+    echo "       -f: Copy firmware only"
+    echo "       -m: Copy file for MAC address only"
+    exit 1
+}
 
-QRLINUX_DTB = "apq8074pro-ab-eagle.dtb \
-    apq8074pro-ab-eagle-p2.dtb"
+optFWOnly=
+optMACOnly=
 
-FEATURE_PACKAGES_eagle8074-kernelmods = "compat-wireless"
-#FEATURE_PACKAGES_eagle8074-kernelmods += "kernel-module-cfg80211"
-#FEATURE_PACKAGES_ethernet-eagle8074 = "ethernet-eagle8074"
+while [ "$1" != "" ]
+do
+    case $1 in 
+	-f)
+	    optFWOnly=1
+	    ;;
+	-m)
+	    optMACOnly=1
+	    ;;
+	-h)
+	    usage ""
+	    ;;
+	*)
+	    usage "Unknown argument $1"
+	    break
+	    ;;
+    esac
+    shift
+done
 
-IMAGE_FEATURES += "eagle8074-kernelmods"
+if [ -z ${optMACOnly} ]
+then
+    copyFirmware
+fi
 
+if [ -z ${optFWOnly} ]
+then
+    copyMACAddr
+fi

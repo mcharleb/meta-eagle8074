@@ -1,3 +1,5 @@
+inherit autotools qti-proprietary-binary
+
 SUMMARY = "Hexagon RPC daemon"
 SECTION = "core"
 LICENSE = "QUALCOMM-TECHNOLOGY-Proprietary"
@@ -7,21 +9,19 @@ PR = "r0"
 PV = "1.0"
 SRC_URI_append = " file://adsprpcd.conf"
 
-inherit autotools
-
 # TBD
 #inherit qti-proprietary-binary
 
 # Express dependency on kernel headers and pass header path to configure
 DEPENDS += "virtual/kernel"
-EXTRA_OECONF_append = " --with-sanitized-headers=${STAGING_INCDIR}/linux-headers/usr/include"
+EXTRA_OECONF_append = " --with-sanitized-headers=${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 PACKAGES = "${PN}"
 INSANE_SKIP_${PN} += "installed-vs-shipped"
 INSANE_SKIP_${PN} += "dev-so"
 FILES_${PN} += "/etc/init/adsprpcd.conf"
 FILES_${PN} += "/usr/lib/*.so"
 
-CPPFLAGS = " -I${STAGING_KERNEL_DIR}/include"
+CPPFLAGS = " -I${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 
 # packages created automatically by bitbake based on what 'make install' installs
 # just had to modify makefile to install the necessary headers into ${includedir}
