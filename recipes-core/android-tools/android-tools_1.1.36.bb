@@ -35,7 +35,7 @@ SRC_URI_append_arm = " file://adb.conf"
 
 EXTRA_OECONF_arm = "--disable-shared \
     --with-host-os=${HOST_OS} \
-    --with-sanitized-headers=${STAGING_INCDIR}/linux-headers/usr/include"
+    --with-sanitized-headers=${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 
 INSANE_SKIP_${PN} = "installed-vs-shipped"
 FILES_${PN}-dev += "${includedir}/cutils"

@@ -8,8 +8,8 @@ IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMA
 
 IMAGE_INSTALL += "android-tools"
 IMAGE_INSTALL += "gdb"
-IMAGE_INSTALL += "gcc"
-IMAGE_INSTALL += "dpkg"
+IMAGE_INSTALL += "oprofile"
+IMAGE_INSTALL += "strace"
 IMAGE_INSTALL += "adsprpc"
 IMAGE_INSTALL += "kernel-module-wlan"
 IMAGE_INSTALL += "wireless-tools"

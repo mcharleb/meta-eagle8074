@@ -11,6 +11,8 @@ PR = "r0"
 PACKAGES = "${PN}"
 PACKAGES += "${PN}-dbg"
 
+FILES_${PN} += "/usr/include/live555/*"
+FILES_${PN} += "/usr/lib/*"
 
 CXXFLAGS += "-I ${WORKDIR}/live555-${PV}/liveMedia/include"
 CXXFLAGS += "-I ${WORKDIR}/live555-${PV}/groupsock/include"
@@ -25,29 +27,23 @@ do_configure_append() {
     ./genMakefiles linux-with-shared-libraries
 }
 
-
-do_install_prepend() {
-    cd ${WORKDIR}/image
-    mkdir usr
-    cd usr
-    mkdir lib
-
-    cp ../../live555-${PV}/liveMedia/libliveMedia.so* ./lib/
-    cp ../../live555-${PV}/groupsock/lib* ./lib/
-    cp ../../live555-${PV}/UsageEnvironment/lib* ./lib/
-    cp ../../live555-${PV}/BasicUsageEnvironment/lib* ./lib/
-    cd lib
+do_install() {
+    install -d ${D}${libdir}
+    cp ${WORKDIR}/live555-${PV}/liveMedia/libliveMedia.so* ${D}${libdir}
+    cp ${WORKDIR}/live555-${PV}/groupsock/lib* ${D}${libdir}
+    cp ${WORKDIR}/live555-${PV}/UsageEnvironment/lib* ${D}${libdir}
+    cp ${WORKDIR}/live555-${PV}/BasicUsageEnvironment/lib* ${D}${libdir}
+    cd ${D}${libdir}
     ln -fs libliveMedia.so* libliveMedia.so    
     ln -fs libgroupsock.so* libgroupsock.so
     ln -fs libUsageEnvironment.so* libUsageEnvironment.so
     ln -fs libBasicUsageEnvironment.so* libBasicUsageEnvironment.so
-}
-do_install_append() {
-    install -d ${STAGING_DIR_TARGET}/usr/include/live555/
-    install -m 0755 ${WORKDIR}/live555-${PV}/liveMedia/include/*.hh ${STAGING_DIR_TARGET}/usr/include/live555/
-    install -m 0755 ${WORKDIR}/live555-${PV}/groupsock/include/* ${STAGING_DIR_TARGET}/usr/include/live555/
-    install -m 0755 ${WORKDIR}/live555-${PV}/BasicUsageEnvironment/include/* ${STAGING_DIR_TARGET}/usr/include/live555/
-    install -m 0755 ${WORKDIR}/live555-${PV}/UsageEnvironment/include/* ${STAGING_DIR_TARGET}/usr/include/live555/
+
+    install -d ${D}${includedir}/live555/
+    install -m 0755 ${WORKDIR}/live555-${PV}/liveMedia/include/*.hh ${D}${includedir}/live555
+    install -m 0755 ${WORKDIR}/live555-${PV}/groupsock/include/* ${D}${includedir}/live555
+    install -m 0755 ${WORKDIR}/live555-${PV}/BasicUsageEnvironment/include/* ${D}${includedir}/live555
+    install -m 0755 ${WORKDIR}/live555-${PV}/UsageEnvironment/include/* ${D}${includedir}/live555
 }
 
 do_unpack_append() {
