@@ -3,7 +3,7 @@
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
-DEPENDS += "dtc-native dtbtool-native mkbootimg-native"
+DEPENDS += "dtc-native dtbtool-native android-tools"
 FILESPATH =+ "${SOURCE}:"
 S         =  "${WORKDIR}/linux"
 KBUILD_DEFCONFIG = "msm8974_defconfig"
@@ -31,6 +31,8 @@ KERNEL_BUILD_DIR = "${WORKDIR}/linux-eagle8074-standard-build"
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
+FILES_${PV} += "/usr/src/${MACHINE}/*"
+
 PROVIDES += "kernel-module-cfg80211"
 
 do_removegit () {
@@ -40,20 +42,23 @@ do_removegit () {
 }
 
 do_deploy_append() {
-    rm -f "${DEPLOYDIR}/devicetree.img" "${DEPLOYDIR}/boot.img"
+    rm -f "${DEPLOYDIR}/devicetree.img" "${DEPLOYDIR}/boot-eagle8074.img"
     echo "Building device tree ${QRLINUX_KERNEL_DEVICE_TREE}..."
     oe_runmake ${QRLINUX_DTB}
-    dtbTool -o "${DEPLOYDIR}/devicetree.img" -p "${KERNEL_BUILD_DIR}/scripts/dtc/" -v "${KERNEL_BUILD_DIR}/arch/arm/boot/"
+    dtbtool -o "${DEPLOYDIR}/devicetree.img" -p "${KERNEL_BUILD_DIR}/scripts/dtc/" -v "${KERNEL_BUILD_DIR}/arch/arm/boot/"
     mkbootimg --kernel ${KERNEL_BUILD_DIR}/arch/arm/boot/${KERNEL_IMAGETYPE} \
+	--dt ${DEPLOYDIR}/devicetree.img \
 	--base ${KERNEL_BASE} \
 	--ramdisk ${WORKDIR}/initrd.img \
 	--ramdisk_offset ${RAMDISK_OFFSET} \
 	--cmdline "${KERNEL_CMDLINE}" \
 	--pagesize ${PAGE_SIZE} \
-	--output ${DEPLOYDIR}/boot.img
+	--output ${DEPLOYDIR}/boot-eagle8074.img
 
 # FIXME Unsupported in the Jethro version of mkbootimg
 #	--dt "${DEPLOYDIR}/devicetree.img" \
+
+#mkbootimg --kernel ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage --dt ${KERNEL_BUILD_DIR}/arch/arm/boot/masterDTB --base 0x80200000 --ramdisk ${WORKDIR}/initrd.img --ramdisk_offset 0x02D00000 --cmdline console=ttyHSL0,115200,n8 root=/dev/mmcblk0p13 rw rootwait  prim_display=hdmi_msm --pagesize 2048 --output /home/mcharleb/work/OE-8074/oe-core-08-12/oe-core/build/tmp-eglibc/deploy/images/eagle8074/boot-eagle8074.img
 }
 
 do_install_append() {
