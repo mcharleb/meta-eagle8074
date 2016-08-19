@@ -31,7 +31,7 @@ KERNEL_BUILD_DIR = "${WORKDIR}/linux-eagle8074-standard-build"
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
-FILES_${PV} += "/usr/src/${MACHINE}/*"
+FILES_${PN} += "/usr/src/${MACHINE}/*"
 
 PROVIDES += "kernel-module-cfg80211"
 
