@@ -16,7 +16,7 @@ PACKAGES = "${PN}"
 PACKAGES += "${PN}-dbg"
 
 # Need the kernel headers
-DEPENDS += "virtual/kernel"
+DEPENDS += "${MACHINE}-kernel-devsrc"
 DEPENDS += "android-tools"
 DEPENDS += "libhardware-headers"
 DEPENDS += "libhardware"

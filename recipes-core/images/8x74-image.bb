@@ -68,10 +68,32 @@ IMAGE_INSTALL += "perf-tools-prebuilt"
 IMAGE_INSTALL += "adreno200-prebuilt"
 IMAGE_INSTALL += "math-cl"
 
+# Testing
+IMAGE_INSTALL += "tcpdump"
+IMAGE_INSTALL += "wget"
+IMAGE_INSTALL += "unzip"
+IMAGE_INSTALL += "psmisc"
+IMAGE_INSTALL += "p7zip"
+
+# LTE
+IMAGE_INSTALL += "openvpn"
+
+# DISABLED - too many extraneous deps
+#IMAGE_INSTALL += "imagemagick"
+
+# GStreamer
+IMAGE_INSTALL += "gstreamer1.0-plugins-base"
+IMAGE_INSTALL += "gstreamer1.0-plugins-good"
+
+# OpenCV
+CORE_IMAGE_EXTRA_INSTALL += "opencv libopencv-core libopencv-imgproc" 
+
 IMAGE_ROOTFS_SIZE = "524288"
 IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "" ,d)}"
 
 TOOLCHAIN_TARGET_TASK_append = " kernel-devsrc"
+
+PACKAGECONFIG_pn-qemu-native = ""
 
 # delete the old image files that already exist
 python do_rootfs_prepend() {

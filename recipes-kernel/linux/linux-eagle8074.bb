@@ -3,7 +3,7 @@
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
-DEPENDS += "dtc-native dtbtool-native android-tools"
+DEPENDS += "dtc-native dtbtool-native android-tools-native"
 FILESPATH =+ "${SOURCE}:"
 S         =  "${WORKDIR}/linux"
 KBUILD_DEFCONFIG = "msm8974_defconfig"
@@ -22,18 +22,23 @@ SRC_URI[initrd.sha256sum] = "d177ba515258df5fda6d34043261d694026c9e27f1ef8ec1667
 
 #GCCVERSION="4.8%"
 
+# Install headers so they don't conflict with the system headers
+KERNEL_SRC_PATH = "/usr/src/${MACHINE}"
+
 LINUX_VERSION ?= "3.4"
 LINUX_VERSION_EXTENSION ?= "-eagle8074"
 COMPATIBLE_MACHINE_eagle8074 = "eagle8074"
 
 KERNEL_BUILD_DIR = "${WORKDIR}/linux-eagle8074-standard-build"
 
+PACKAGES += "${MACHINE}-kernel-devsrc"
+
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
-FILES_${PN} += "/usr/src/${MACHINE}/*"
+PROVIDES += "kernel-module-cfg80211 ${MACHINE}-kernel-devsrc"
 
-PROVIDES += "kernel-module-cfg80211"
+FILES_eagle-kernel-devsrc = "/usr/src/${MACHINE}"
 
 do_removegit () {
    rm -rf "${S}/.git"
@@ -54,19 +59,14 @@ do_deploy_append() {
 	--cmdline "${KERNEL_CMDLINE}" \
 	--pagesize ${PAGE_SIZE} \
 	--output ${DEPLOYDIR}/boot-eagle8074.img
-
-# FIXME Unsupported in the Jethro version of mkbootimg
-#	--dt "${DEPLOYDIR}/devicetree.img" \
-
-#mkbootimg --kernel ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage --dt ${KERNEL_BUILD_DIR}/arch/arm/boot/masterDTB --base 0x80200000 --ramdisk ${WORKDIR}/initrd.img --ramdisk_offset 0x02D00000 --cmdline console=ttyHSL0,115200,n8 root=/dev/mmcblk0p13 rw rootwait  prim_display=hdmi_msm --pagesize 2048 --output /home/mcharleb/work/OE-8074/oe-core-08-12/oe-core/build/tmp-eglibc/deploy/images/eagle8074/boot-eagle8074.img
 }
 
 do_install_append() {
-     make headers_install INSTALL_HDR_PATH="${D}/usr/src/${MACHINE}"
+     make headers_install INSTALL_HDR_PATH="${D}${KERNEL_SRC_PATH}"
 }
 
 sysroot_stage_all_append() {
-         sysroot_stage_dir "${D}/usr/src/${MACHINE}" "${SYSROOT_DESTDIR}/usr/src/${MACHINE}"
+         sysroot_stage_dir "${D}${KERNEL_SRC_PATH}" "${SYSROOT_DESTDIR}${KERNEL_SRC_PATH}"
 }
 
 addtask do_removegit after do_unpack before do_kernel_checkout
