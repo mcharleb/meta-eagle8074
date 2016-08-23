@@ -2,14 +2,14 @@ inherit core-image
 
 SUMMARY = "8x74 default image"
 
-DEPENDS += "lk img2simg-native"
+DEPENDS += "lk ext2simg-native"
 
 IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
 IMAGE_INSTALL += "android-tools"
 IMAGE_INSTALL += "gdb"
-IMAGE_INSTALL += "oprofile"
-IMAGE_INSTALL += "strace"
+#IMAGE_INSTALL += "oprofile"
+#IMAGE_INSTALL += "strace"
 IMAGE_INSTALL += "adsprpc"
 IMAGE_INSTALL += "kernel-module-wlan"
 IMAGE_INSTALL += "wireless-tools"
@@ -34,12 +34,12 @@ IMAGE_INSTALL += "libjpeg-turbo"
 IMAGE_INSTALL += "libopenh264"
 IMAGE_INSTALL += "frameworks-av"
 IMAGE_INSTALL += "post-boot"
-IMAGE_INSTALL += "linux-firmware"
+#IMAGE_INSTALL += "linux-firmware"
 IMAGE_INSTALL += "libhardware"
 IMAGE_INSTALL += "power-hal"
 
-#IMAGE_INSTALL += "ath3k-bluez"
-#IMAGE_INSTALL += "qrl-scripts"
+IMAGE_INSTALL += "ath3k-bluez"
+IMAGE_INSTALL += "qrl-scripts"
 #IMAGE_INSTALL += "recovery"
 #IMAGE_INSTALL += "recovery-image"
 #IMAGE_INSTALL += "recovery-script"
@@ -52,14 +52,13 @@ IMAGE_INSTALL += "mp-decision"
 IMAGE_INSTALL += "qmi"
 IMAGE_INSTALL += "qmi-framework"
 IMAGE_INSTALL += "thermal-engine"
-IMAGE_INSTALL += "ath6kl-firmware"
+#IMAGE_INSTALL += "ath6kl-firmware"
 IMAGE_INSTALL += "ath6kl-utils"
 IMAGE_INSTALL += "q6-admin"
-IMAGE_INSTALL += "adsprpc"
 IMAGE_INSTALL += "ss-restart"
 IMAGE_INSTALL += "mm-camera"
 IMAGE_INSTALL += "mm-still"
-IMAGE_INSTALL += "mm-video-firmware-prebuilt"
+#IMAGE_INSTALL += "mm-video-firmware-prebuilt"
 IMAGE_INSTALL += "mm-video"
 IMAGE_INSTALL += "ftmdaemon"
 IMAGE_INSTALL += "fastmmi"
@@ -85,6 +84,16 @@ IMAGE_INSTALL += "openvpn"
 IMAGE_INSTALL += "gstreamer1.0-plugins-base"
 IMAGE_INSTALL += "gstreamer1.0-plugins-good"
 
+# Kernel
+#IMAGE_INSTALL += "kernel-3.4.0-${MACHINE}"
+IMAGE_INSTALL += "kernel-module-wlan"
+IMAGE_INSTALL += "depmodwrapper-cross"
+IMAGE_INSTALL += "compat-wireless"
+IMAGE_INSTALL += "kernel-module-rdbg"
+
+# Missing
+IMAGE_INSTALL += "openssl"
+
 # OpenCV
 CORE_IMAGE_EXTRA_INSTALL += "opencv libopencv-core libopencv-imgproc" 
 
@@ -101,5 +110,5 @@ python do_rootfs_prepend() {
 }
 
 python do_rootfs_append() {
-    os.system("img2simg ${DEPLOY_DIR_IMAGE}/8x74-image-${MACHINE}.ext4 ${DEPLOY_DIR_IMAGE}/out/userdata-${MACHINE}.img")
+    os.system("ext2simg -v ${DEPLOY_DIR_IMAGE}/8x74-image-${MACHINE}.ext4 ${DEPLOY_DIR_IMAGE}/out/userdata-${MACHINE}.img")
 }

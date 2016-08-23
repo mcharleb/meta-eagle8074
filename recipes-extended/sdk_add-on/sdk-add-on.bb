@@ -15,16 +15,18 @@ FILES_${PN} += "/usr/share/data/adsp/*"
 FILES_${PN} += "/usr/lib/*.so"
 FILES_${PN}-staticdev += "/usr/lib/*.a"
 FILES_${PN} += "/usr/tests/*"
-FILES_${PN} += "/lib/firmware/*"
 FILES_${PN} += "/firmware/image/*"
 FILES_${PN} += "/usr/include/sensor-imu/*"
 FILES_${PN} += "/usr/bin/*"
+
+FILES_${PN}-firmware += "/lib/firmware/*"
 
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 INHIBIT_PACKAGE_STRIP = "1"
 #SKIP_FILEDEPS = "1"
 
-PACKAGES = "${PN}"
+PACKAGES = "${PN} ${PN}-firmware"
+PROVIDES = "${PN} ${PN}-firmware"
 
 do_install_append() {
     dest=/lib/firmware
@@ -63,7 +65,7 @@ do_install_append() {
 #    install -m 0755 ${WORKDIR}/flight_controller/krait/apps/* -D ${D}${dest}
 }
 
-INSANE_SKIP_${PN} += "arch"
+INSANE_SKIP_${PN}-firmware += "arch"
 INSANE_SKIP_${PN} += "textrel"
 INSANE_SKIP_${PN} += "libdir"
 INSANE_SKIP_${PN} += "ldflags"

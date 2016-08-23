@@ -54,5 +54,5 @@ do_compile() {
 
 do_install() {
     install -d ${D}${bindir}
-    install -m 0755 ${S}/extras/ext4_utils/img2simg ${D}${bindir}
+    install -m 0755 ${S}/extras/ext4_utils/ext2simg ${D}${bindir}
 }
