@@ -33,6 +33,8 @@ B = "${S}"
 SRC_URI = "file://system/core/"
 SRC_URI_append_arm = " file://adb.conf"
 
+BUILD_COMPONENTS = "libsparse"
+
 EXTRA_OECONF_arm = "--disable-shared \
     --with-host-os=${HOST_OS} \
     --with-sanitized-headers=${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"

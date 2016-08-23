@@ -2,7 +2,7 @@ inherit core-image
 
 SUMMARY = "8x74 default image"
 
-DEPENDS += "lk"
+DEPENDS += "lk img2simg-native"
 
 IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
@@ -91,7 +91,7 @@ CORE_IMAGE_EXTRA_INSTALL += "opencv libopencv-core libopencv-imgproc"
 IMAGE_ROOTFS_SIZE = "524288"
 IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "" ,d)}"
 
-TOOLCHAIN_TARGET_TASK_append = " kernel-devsrc"
+TOOLCHAIN_TARGET_TASK_append = " ${MACHINE}-kernel-devsrc"
 
 PACKAGECONFIG_pn-qemu-native = ""
 
@@ -100,3 +100,6 @@ python do_rootfs_prepend() {
     os.system("rm -rf ${DEPLOY_DIR_IMAGE}/*${PN}*")
 }
 
+python do_rootfs_append() {
+    os.system("img2simg ${DEPLOY_DIR_IMAGE}/8x74-image-${MACHINE}.ext4 ${DEPLOY_DIR_IMAGE}/out/userdata-${MACHINE}.img")
+}

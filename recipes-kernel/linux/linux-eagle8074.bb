@@ -47,6 +47,7 @@ do_removegit () {
 }
 
 do_deploy_append() {
+    mkdir -p ${DEPLOYDIR}/out
     rm -f "${DEPLOYDIR}/devicetree.img" "${DEPLOYDIR}/boot-eagle8074.img"
     echo "Building device tree ${QRLINUX_KERNEL_DEVICE_TREE}..."
     oe_runmake ${QRLINUX_DTB}
@@ -58,7 +59,7 @@ do_deploy_append() {
 	--ramdisk_offset ${RAMDISK_OFFSET} \
 	--cmdline "${KERNEL_CMDLINE}" \
 	--pagesize ${PAGE_SIZE} \
-	--output ${DEPLOYDIR}/boot-eagle8074.img
+	--output ${DEPLOYDIR}/out/boot-eagle8074.img
 }
 
 do_install_append() {
