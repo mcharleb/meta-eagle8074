@@ -240,3 +240,7 @@ CONF_VERSION = "1"
 # Sets the virtual runtime device manager to mdev instead of udev
 # VIRTUAL-RUNTIME_dev_manager = "busybox-mdev"
 
+# The meta-qcom-bsp layer is creating incompatible mount points
+BBMASK = "meta-qcom-bsp/recipes-core/base-files"
+BBMASK += "meta-qcom-bsp/recipes-core/init-ifupdown"
+

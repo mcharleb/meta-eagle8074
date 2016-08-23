@@ -3,7 +3,8 @@
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
-DEPENDS += "dtc-native dtbtool-native android-tools-native"
+DEPENDS += "dtbtool-native"
+
 FILESPATH =+ "${SOURCE}:"
 S         =  "${WORKDIR}/linux"
 KBUILD_DEFCONFIG = "msm8974_defconfig"
@@ -16,29 +17,24 @@ SRC_URI += "\
             file://bluetooth.patch;apply=no \
            "
 
-SRC_URI += "https://releases.linaro.org/14.09/ubuntu/ifc6410/initrd.img-3.4.0-linaro-ifc6410;downloadfilename=initrd.img;name=initrd"
-SRC_URI[initrd.md5sum] = "d92fb01531698e30615f26efa2999c6c"
-SRC_URI[initrd.sha256sum] = "d177ba515258df5fda6d34043261d694026c9e27f1ef8ec16674fa479c5b47fb"
-
-#GCCVERSION="4.8%"
-
 # Install headers so they don't conflict with the system headers
 KERNEL_SRC_PATH = "/usr/src/${MACHINE}"
 
-LINUX_VERSION ?= "3.4"
-LINUX_VERSION_EXTENSION ?= "-eagle8074"
 COMPATIBLE_MACHINE_eagle8074 = "eagle8074"
+LINUX_VERSION ?= "3.4"
+LINUX_VERSION_EXTENSION ?= "-${MACHINE}"
 
 KERNEL_BUILD_DIR = "${WORKDIR}/linux-eagle8074-standard-build"
 
-PACKAGES += "${MACHINE}-kernel-devsrc"
+PACKAGES += "${MACHINE}-kernel-devsrc ${MACHINE}-kernel"
 
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
-PROVIDES += "kernel-module-cfg80211 ${MACHINE}-kernel-devsrc"
+PROVIDES += "kernel-module-cfg80211 ${MACHINE}-kernel-devsrc ${MACHINE}-kernel"
 
-FILES_eagle-kernel-devsrc = "/usr/src/${MACHINE}"
+FILES_${MACHINE}-kernel-devsrc = "${KERNEL_SRC_PATH}/*"
+FILES_${MACHINE}-kernel = "/boot/${MACHINE}/*"
 
 do_removegit () {
    rm -rf "${S}/.git"
@@ -46,24 +42,13 @@ do_removegit () {
    rm -rf "${S}/.metadir"
 }
 
-do_deploy_append() {
-    mkdir -p ${DEPLOYDIR}/out
-    rm -f "${DEPLOYDIR}/devicetree.img" "${DEPLOYDIR}/boot-eagle8074.img"
+do_install_append() {
+    install -d ${D}boot/${MACHINE}
+    install ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage ${D}boot/${MACHINE}/zImage
+    make headers_install INSTALL_HDR_PATH="${D}${KERNEL_SRC_PATH}"
     echo "Building device tree ${QRLINUX_KERNEL_DEVICE_TREE}..."
     oe_runmake ${QRLINUX_DTB}
-    dtbtool -o "${DEPLOYDIR}/devicetree.img" -p "${KERNEL_BUILD_DIR}/scripts/dtc/" -v "${KERNEL_BUILD_DIR}/arch/arm/boot/"
-    mkbootimg --kernel ${KERNEL_BUILD_DIR}/arch/arm/boot/${KERNEL_IMAGETYPE} \
-	--dt ${DEPLOYDIR}/devicetree.img \
-	--base ${KERNEL_BASE} \
-	--ramdisk ${WORKDIR}/initrd.img \
-	--ramdisk_offset ${RAMDISK_OFFSET} \
-	--cmdline "${KERNEL_CMDLINE}" \
-	--pagesize ${PAGE_SIZE} \
-	--output ${DEPLOYDIR}/out/boot-eagle8074.img
-}
-
-do_install_append() {
-     make headers_install INSTALL_HDR_PATH="${D}${KERNEL_SRC_PATH}"
+    dtbtool -o "${D}/boot/${MACHINE}/devicetree.img" -p "${KERNEL_BUILD_DIR}/scripts/dtc/" -v "${KERNEL_BUILD_DIR}/arch/arm/boot/"
 }
 
 sysroot_stage_all_append() {
