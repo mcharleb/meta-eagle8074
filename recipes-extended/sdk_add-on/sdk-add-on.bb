@@ -3,7 +3,7 @@ LICENSE          = "QUALCOMM-TECHNOLOGY-Proprietary"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta-qti/files/qcom-licenses/${LICENSE};md5=400dd647645553d955b1053bbbfcd2de"
 
 PR = "r1"
-PV = "1.0"
+PV = "1.1"
 
 SRC_URI  = "file://qcom_flight_controller_hexagon_sdk_add_on.zip"
 
