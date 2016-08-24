@@ -16,7 +16,7 @@ DEBIAN_NOAUTONAME_${PN} = "1"
 
 
 # Need the kernel headers
-DEPENDS += "${MACHINE}-kernel-devsrc"
+DEPENDS += "kernel-${MACHINE}-devsrc"
 DEPENDS += "android-tools"
 DEPENDS += "libhardware-headers"
 DEPENDS += "system-headers"

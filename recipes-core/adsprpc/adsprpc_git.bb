@@ -13,7 +13,7 @@ SRC_URI_append = " file://adsprpcd.conf"
 #inherit qti-proprietary-binary
 
 # Express dependency on kernel headers and pass header path to configure
-DEPENDS += "${MACHINE}-kernel-devsrc"
+DEPENDS += "kernel-${MACHINE}-devsrc"
 EXTRA_OECONF_append = " --with-sanitized-headers=${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 PACKAGES = "${PN}"
 INSANE_SKIP_${PN} += "installed-vs-shipped"

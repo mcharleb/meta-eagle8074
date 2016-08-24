@@ -101,7 +101,7 @@ CORE_IMAGE_EXTRA_INSTALL += "opencv libopencv-core libopencv-imgproc"
 IMAGE_ROOTFS_SIZE = "524288"
 IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "" ,d)}"
 
-TOOLCHAIN_TARGET_TASK_append = " ${MACHINE}-kernel-devsrc"
+TOOLCHAIN_TARGET_TASK_append = "kernel-${MACHINE}-devsrc"
 
 PACKAGECONFIG_pn-qemu-native = ""
 
