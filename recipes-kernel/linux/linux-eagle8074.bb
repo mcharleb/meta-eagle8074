@@ -26,15 +26,20 @@ LINUX_VERSION_EXTENSION ?= "-${MACHINE}"
 
 KERNEL_BUILD_DIR = "${WORKDIR}/linux-eagle8074-standard-build"
 
-PACKAGES += "${MACHINE}-kernel-devsrc ${MACHINE}-kernel"
+PACKAGES_DYNAMIC += "^kernel-dtb-.*"
+PACKAGES_DYNAMIC += "^kernel-eagle8074-devsrc-.*"
+
+PACKAGES += "kernel-eagle8074-devsrc kernel-dtb"
 
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
-PROVIDES += "kernel-module-cfg80211 ${MACHINE}-kernel-devsrc ${MACHINE}-kernel"
+FILES_kernel-dtb = "/usr/share/eagle8074/devicetree.img"
 
-FILES_${MACHINE}-kernel-devsrc = "${KERNEL_SRC_PATH}/*"
-FILES_${MACHINE}-kernel = "/boot/${MACHINE}/*"
+PROVIDES += "kernel-module-cfg80211 kernel-eagle8074-devsrc kernel-dtb"
+
+FILES_kernel-eagle8074-devsrc = "${KERNEL_SRC_PATH}/*"
+FILES_kernel-dtb = "/usr/share/eagle8074/*"
 
 do_removegit () {
    rm -rf "${S}/.git"
@@ -43,16 +48,17 @@ do_removegit () {
 }
 
 do_install_append() {
-    install -d ${D}boot/${MACHINE}
-    install ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage ${D}boot/${MACHINE}/zImage
-    make headers_install INSTALL_HDR_PATH="${D}${KERNEL_SRC_PATH}"
+    install -d ${D}/usr/share/eagle8074
+    install ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage ${D}/usr/share/eagle8074/zImage
+    make headers_install INSTALL_HDR_PATH="${D}/${KERNEL_SRC_PATH}"
     echo "Building device tree ${QRLINUX_KERNEL_DEVICE_TREE}..."
     oe_runmake ${QRLINUX_DTB}
-    dtbtool -o "${D}/boot/${MACHINE}/devicetree.img" -p "${KERNEL_BUILD_DIR}/scripts/dtc/" -v "${KERNEL_BUILD_DIR}/arch/arm/boot/"
+    dtbtool -o "${D}/usr/share/eagle8074/devicetree.img" -p "${KERNEL_BUILD_DIR}/scripts/dtc/" -v "${KERNEL_BUILD_DIR}/arch/arm/boot/"
 }
 
 sysroot_stage_all_append() {
-         sysroot_stage_dir "${D}${KERNEL_SRC_PATH}" "${SYSROOT_DESTDIR}${KERNEL_SRC_PATH}"
+         sysroot_stage_dir "${D}/${KERNEL_SRC_PATH}" "${SYSROOT_DESTDIR}/${KERNEL_SRC_PATH}"
+         sysroot_stage_dir "${D}/usr/share/eagle8074" "${SYSROOT_DESTDIR}/usr/share/eagle8074"
 }
 
 addtask do_removegit after do_unpack before do_kernel_checkout
