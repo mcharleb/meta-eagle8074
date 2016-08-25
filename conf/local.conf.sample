@@ -243,4 +243,3 @@ CONF_VERSION = "1"
 # The meta-qcom-bsp layer is creating incompatible mount points
 BBMASK = "meta-qcom-bsp/recipes-core/base-files"
 BBMASK += "meta-qcom-bsp/recipes-core/init-ifupdown"
-

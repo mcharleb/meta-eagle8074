@@ -3,8 +3,12 @@ rebake() {
   bitbake -c cleanall $@ && bitbake $@
 }
 
-build8x74(){
-    bitbake 8x74-image && \
+build-eagle8074(){
+    bitbake eagle8074-cache-image    && \
+    bitbake eagle8074-factory-image  && \
+    bitbake eagle8074-persist-image  && \
+    bitbake eagle8074-recovery-image && \
+    bitbake eagle8074-userdata-image && \
     bitbake lk
 }
 
