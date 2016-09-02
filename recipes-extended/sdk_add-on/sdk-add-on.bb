@@ -5,6 +5,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta-qti/files/qcom-licenses/${LICENSE};m
 PR = "r1"
 PV = "1.1"
 
+FILESPATH =+ "${WORKSPACE}:"
 SRC_URI  = "file://qcom_flight_controller_hexagon_sdk_add_on.zip"
 
 RDEPENDS_${PN} = "adsprpc libgcc glibc"

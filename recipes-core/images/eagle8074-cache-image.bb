@@ -7,9 +7,8 @@ IMAGE_ROOTFS_SIZE = "28672"
 
 inherit image-empty
 
-IMAGE_INSTALL += "adreno200-prebuilt-firmware"
-IMAGE_INSTALL += "mm-video-prebuilt-firmware"
-IMAGE_INSTALL += "sdk-add-on-firmware"
+IMAGE_INSTALL += "adreno200-firmware"
+IMAGE_INSTALL += "mm-video-firmware"
 IMAGE_INSTALL += "ath6kl-firmware"
 IMAGE_INSTALL += "mm-camera-firmware"
 
