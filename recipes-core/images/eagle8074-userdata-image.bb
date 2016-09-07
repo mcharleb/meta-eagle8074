@@ -63,8 +63,8 @@ IMAGE_INSTALL += "mm-video"
 IMAGE_INSTALL += "ftmdaemon"
 IMAGE_INSTALL += "fastmmi"
 IMAGE_INSTALL += "remote-debug-agent"
-IMAGE_INSTALL += "perf-tools-prebuilt"
-IMAGE_INSTALL += "adreno200-prebuilt"
+IMAGE_INSTALL += "perf-tools"
+IMAGE_INSTALL += "adreno200"
 IMAGE_INSTALL += "math-cl"
 
 # Testing
