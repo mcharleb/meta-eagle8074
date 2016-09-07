@@ -40,7 +40,9 @@ do_install() {
 }
 
 # Save the user modified conf file
-pkg_prerm_${PN}() {
+
+# FIXME - doesn't work in Jethro
+fixme_pkg_prerm_${PN}() {
     file_md5sum() {
         pn=$1
         fn=$2
@@ -54,7 +56,8 @@ pkg_prerm_${PN}() {
     fi
 }
 
-pkg_postinst_${PN}() {
+# FIXME - doesn't work in Jethro
+fixme_pkg_postinst_${PN}() {
     install_conf() {
         # Set SSID and install the "live" hostapd.conf
         rand=`od -An -N2 -tu2 /dev/urandom | sed -e 's/ //g'`

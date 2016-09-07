@@ -16,7 +16,8 @@ do_install() {
     install -m 644 ${WORKDIR}/post-boot.conf ${D}${dest}
 }
 
-pkg_postinst_${PN} () {
+# FIXME cpufrequtils not installed and disable is not a supported option
+fixme_pkg_postinst_${PN} () {
     update-rc.d ondemand disable
-    update-rc.d cpufrequtils disable
+    #update-rc.d cpufrequtils disable
 }

@@ -38,9 +38,10 @@ do_install_append() {
     install -d ${D}${dest}
     install -m 0644 ${WORKDIR}/flight_controller/krait/libs/*.* -D ${D}${dest}
 
-#    # FIXME - these are being tested for lib deps with the wrong architecture
-#    dest=/usr/share/data/adsp
-#    install -d ${D}${dest}
+    # FIXME - these are being tested for lib deps with the wrong architecture
+    dest=/usr/share/data/adsp
+    install -d ${D}${dest}
+#    FIXME - cant install DSP libs
 #    install -m 0755 ${WORKDIR}/flight_controller/hexagon/libs/*.* -D ${D}${dest}
      
 #    src=../../../../../../../meta-qti-flight-prebuilt/meta-eagle8074/files/  
