@@ -12,13 +12,14 @@ BBFILES ?= ""
 BBLAYERS ?= " \
   ${TOPDIR}/../meta \
   ${TOPDIR}/../meta-yocto \
-  ${TOPDIR}/../meta-eagle8074 \
-  ${TOPDIR}/../meta-qti \
-  ${TOPDIR}/../meta-qti-prebuilt \
-  ${TOPDIR}/../meta-smartphone/meta-android \
   ${TOPDIR}/../meta-openembedded/meta-oe \
   ${TOPDIR}/../meta-openembedded/meta-python \
   ${TOPDIR}/../meta-openembedded/meta-networking \
+  ${TOPDIR}/../meta-eagle8074 \
+  ${TOPDIR}/../meta-qti \
+  ${TOPDIR}/../meta-ros \
+  ${TOPDIR}/../meta-ros-eagle \
+  ${TOPDIR}/../meta-smartphone/meta-android \
   "
 BBLAYERS_NON_REMOVABLE ?= " \
   ${TOPDIR}/../meta \

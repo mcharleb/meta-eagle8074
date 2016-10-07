@@ -51,6 +51,7 @@ MACHINE ??= "eagle8074"
 # these defaults.
 #
 DISTRO ?= "eagle8074"
+
 # As an example of a subclass there is a "bleeding" edge policy configuration
 # where many versions are set to the absolute latest code from the upstream 
 # source control systems. This is just mentioned here as an example, its not
@@ -69,7 +70,7 @@ DISTRO ?= "eagle8074"
 #  - 'package_rpm' for rpm style packages
 # E.g.: PACKAGE_CLASSES ?= "package_rpm package_deb package_ipk"
 # We default to rpm:
-PACKAGE_CLASSES ?= "package_ipk"
+#PACKAGE_CLASSES ?= "package_rpm"
 
 #
 # SDK/ADT target architecture

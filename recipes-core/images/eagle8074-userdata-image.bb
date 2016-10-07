@@ -9,6 +9,9 @@ IMAGE_ROOTFS_SIZE = "8388608"
 
 IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
+# From meta-ros-eagle
+IMAGE_INSTALL += "packagegroup-ros-eagle"
+
 IMAGE_INSTALL += "android-tools"
 IMAGE_INSTALL += "gdb"
 #IMAGE_INSTALL += "oprofile"
