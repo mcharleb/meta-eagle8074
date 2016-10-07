@@ -4,24 +4,23 @@ LCONF_VERSION = "6"
 
 # FIXME Excelsior uses SOURCE, Eagle uses WORKSPACE, these need to be unified
 export SOURCE := "${@os.path.abspath(os.path.join(os.path.dirname(bb.data.getVar('FILE', d)),'../../..'))}"
-export WORKSPACE := ${SOURCE}
+export WORKSPACE := "${SOURCE}"
 
 BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
 BBLAYERS ?= " \
-  ${COREBASE}/meta \
-  ${COREBASE}/meta-yocto \
-  ${COREBASE}/meta-qcom-bsp \
-  ${COREBASE}/meta-eagle8074 \
-  ${COREBASE}/meta-qti \
-  ${COREBASE}/meta-qti-prebuilt \
-  ${COREBASE}/meta-smartphone/meta-android \
-  ${COREBASE}/meta-openembedded/meta-oe \
-  ${COREBASE}/meta-openembedded/meta-python \
-  ${COREBASE}/meta-openembedded/meta-networking \
+  ${TOPDIR}/../meta \
+  ${TOPDIR}/../meta-yocto \
+  ${TOPDIR}/../meta-eagle8074 \
+  ${TOPDIR}/../meta-qti \
+  ${TOPDIR}/../meta-qti-prebuilt \
+  ${TOPDIR}/../meta-smartphone/meta-android \
+  ${TOPDIR}/../meta-openembedded/meta-oe \
+  ${TOPDIR}/../meta-openembedded/meta-python \
+  ${TOPDIR}/../meta-openembedded/meta-networking \
   "
 BBLAYERS_NON_REMOVABLE ?= " \
-  ${COREBASE}/meta \
-  ${COREBASE}/meta-yocto \
+  ${TOPDIR}/../meta \
+  ${TOPDIR}/../meta-yocto \
   "

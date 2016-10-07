@@ -1,2 +1,2 @@
-PACKAGECONFIG_remove = "pango"
+PACKAGECONFIG_remove = "pango orc"
 

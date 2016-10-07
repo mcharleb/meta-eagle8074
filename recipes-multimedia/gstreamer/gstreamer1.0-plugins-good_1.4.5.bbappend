@@ -1,1 +1,1 @@
-PACKAGECONFIG_remove = "gdk-pixbuf cairo"
+PACKAGECONFIG_remove = "gdk-pixbuf cairo orc"

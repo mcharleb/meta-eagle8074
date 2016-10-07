@@ -5,6 +5,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta-qti/files/qcom-licenses/${LICENSE};m
 PR = "r1"
 PV = "1.1"
 
+FILESPATH =+ "${WORKSPACE}:"
 SRC_URI  = "file://qcom_flight_controller_hexagon_sdk_add_on.zip"
 
 RDEPENDS_${PN} = "adsprpc libgcc glibc"
@@ -37,9 +38,10 @@ do_install_append() {
     install -d ${D}${dest}
     install -m 0644 ${WORKDIR}/flight_controller/krait/libs/*.* -D ${D}${dest}
 
-#    # FIXME - these are being tested for lib deps with the wrong architecture
-#    dest=/usr/share/data/adsp
-#    install -d ${D}${dest}
+    # FIXME - these are being tested for lib deps with the wrong architecture
+    dest=/usr/share/data/adsp
+    install -d ${D}${dest}
+#    FIXME - cant install DSP libs
 #    install -m 0755 ${WORKDIR}/flight_controller/hexagon/libs/*.* -D ${D}${dest}
      
 #    src=../../../../../../../meta-qti-flight-prebuilt/meta-eagle8074/files/  
