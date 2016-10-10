@@ -3,7 +3,7 @@
 LCONF_VERSION = "6"
 
 # FIXME Excelsior uses SOURCE, Eagle uses WORKSPACE, these need to be unified
-export SOURCE := "${@os.path.abspath(os.path.join(os.path.dirname(bb.data.getVar('FILE', d)),'../../..'))}"
+export SOURCE := "${@os.path.abspath(os.path.join(os.path.dirname(bb.data.getVar('FILE', d)),'../..'))}"
 export WORKSPACE := "${SOURCE}"
 
 BBPATH = "${TOPDIR}"
