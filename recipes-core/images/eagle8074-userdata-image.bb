@@ -105,7 +105,10 @@ CORE_IMAGE_EXTRA_INSTALL += "opencv libopencv-core libopencv-imgproc"
 IMAGE_ROOTFS_SIZE = "524288"
 IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "" ,d)}"
 
-TOOLCHAIN_TARGET_TASK_append = " kernel-${MACHINE}-devsrc"
+# Adding the kernel source add 577M to the SDK
+# Its preferable to let the developers just clone the kernel at a specific label
+# A script to clone the kernel can be provided
+# TOOLCHAIN_TARGET_TASK_append = " kernel-${MACHINE}-devsrc"
 
 PACKAGECONFIG_pn-qemu-native = ""
 

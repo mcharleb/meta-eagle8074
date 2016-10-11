@@ -1,6 +1,7 @@
 # This file was derived from oe-core/meta-qr-linux/meta-som8064/recipes-kernel/linux/linux-qr-som8064.bb
 
 inherit kernel
+inherit kernel-module-split
 require recipes-kernel/linux/linux-yocto.inc
 
 DEPENDS += "dtbtool-native"
@@ -27,17 +28,17 @@ LINUX_VERSION_EXTENSION ?= "-${MACHINE}"
 KERNEL_BUILD_DIR = "${WORKDIR}/linux-eagle8074-standard-build"
 
 PACKAGES_DYNAMIC += "^kernel-dtb-.*"
+PACKAGES_DYNAMIC += "^kernel-dev-.*"
 
 PACKAGES += "kernel-dtb"
 
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
+PROVIDES += "kernel-dtb kernel-dev"
+
 FILES_kernel-dtb = "/usr/share/eagle8074/devicetree.img"
-
-PROVIDES += "kernel-module-cfg80211 kernel-dtb"
-
-FILES_kernel-dtb = "/usr/share/eagle8074/*"
+FILES_kernel = "/boot/zImage"
 
 do_removegit () {
    rm -rf "${S}/.git"
@@ -47,7 +48,8 @@ do_removegit () {
 
 do_install_append() {
     install -d ${D}/usr/share/eagle8074
-    install ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage ${D}/usr/share/eagle8074/zImage
+    install -d ${D}/boot
+    install ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage ${D}/boot/zImage
     make headers_install INSTALL_HDR_PATH="${D}/${KERNEL_SRC_PATH}"
     echo "Building device tree ${QRLINUX_KERNEL_DEVICE_TREE}..."
     oe_runmake ${QRLINUX_DTB}
