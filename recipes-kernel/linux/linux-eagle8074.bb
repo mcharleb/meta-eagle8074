@@ -27,18 +27,16 @@ LINUX_VERSION_EXTENSION ?= "-${MACHINE}"
 KERNEL_BUILD_DIR = "${WORKDIR}/linux-eagle8074-standard-build"
 
 PACKAGES_DYNAMIC += "^kernel-dtb-.*"
-PACKAGES_DYNAMIC += "^kernel-eagle8074-devsrc-.*"
 
-PACKAGES += "kernel-eagle8074-devsrc kernel-dtb"
+PACKAGES += "kernel-dtb"
 
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
 FILES_kernel-dtb = "/usr/share/eagle8074/devicetree.img"
 
-PROVIDES += "kernel-module-cfg80211 kernel-eagle8074-devsrc kernel-dtb"
+PROVIDES += "kernel-module-cfg80211 kernel-dtb"
 
-FILES_kernel-eagle8074-devsrc = "${KERNEL_SRC_PATH}/*"
 FILES_kernel-dtb = "/usr/share/eagle8074/*"
 
 do_removegit () {
