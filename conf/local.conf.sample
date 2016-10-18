@@ -247,6 +247,9 @@ GLIBC_GENERATE_LOCALES = "en_GB.UTF-8 en_US.UTF-8"
 
 IMAGE_FSTYPES = "ext4"
 
+# Build only glibc variant (not musl and uclibc)
+TARGET-OS = "linux-gnueabi"
+
 # Sets the virtual runtime device manager to mdev instead of udev
 # VIRTUAL-RUNTIME_dev_manager = "busybox-mdev"
 
