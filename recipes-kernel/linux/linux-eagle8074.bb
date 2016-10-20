@@ -15,8 +15,13 @@ SRC_URI += "\
 	    file://eagle8074.cfg \
             file://eagle8074.scc \
             file://eagle8074-user-config.cfg \
-            file://bluetooth.patch;apply=no \
+            file://0001-bluez.patch \
+            file://0002-bluetooth.patch \
+            file://0003-gcc4-9.patch \
            "
+SRC_URI += "https://releases.linaro.org/14.09/ubuntu/ifc6410/initrd.img-3.4.0-linaro-ifc6410;downloadfilename=initrd.img;name=initrd"
+SRC_URI[initrd.md5sum] = "d92fb01531698e30615f26efa2999c6c"
+SRC_URI[initrd.sha256sum] = "d177ba515258df5fda6d34043261d694026c9e27f1ef8ec16674fa479c5b47fb"
 
 # Install headers so they don't conflict with the system headers
 KERNEL_SRC_PATH = "/usr/src/${MACHINE}"
@@ -35,10 +40,10 @@ PACKAGES += "kernel-dtb"
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
-PROVIDES += "kernel-dtb kernel-dev"
+PROVIDES += "kernel-dtb kernel-dev kernel-module-cfg80211"
 
 FILES_kernel-dtb = "/usr/share/eagle8074/devicetree.img"
-FILES_kernel = "/boot/zImage"
+FILES_kernel = "/boot/*"
 
 do_removegit () {
    rm -rf "${S}/.git"
@@ -50,6 +55,7 @@ do_install_append() {
     install -d ${D}/usr/share/eagle8074
     install -d ${D}/boot
     install ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage ${D}/boot/zImage
+    install ${WORKDIR}/initrd.img ${D}/boot/initrd.img
     make headers_install INSTALL_HDR_PATH="${D}/${KERNEL_SRC_PATH}"
     echo "Building device tree ${QRLINUX_KERNEL_DEVICE_TREE}..."
     oe_runmake ${QRLINUX_DTB}
