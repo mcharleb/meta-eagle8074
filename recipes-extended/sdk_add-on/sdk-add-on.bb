@@ -10,22 +10,22 @@ SRC_URI  = "file://qcom_flight_controller_hexagon_sdk_add_on.zip"
 
 INSANE_SKIP_${PN} += "installed-vs-shipped"
 
-FILES_${PN} += "/usr/lib/*.so"
-FILES_${PN}-staticdev += "/usr/lib/*.a"
+FILES_${PN}-staticdev = "/usr/lib/*.a"
+FILES_${PN} = "/usr/lib/*.so"
 FILES_${PN} += "/usr/tests/*"
 FILES_${PN} += "/firmware/image/*"
 FILES_${PN} += "/usr/include/sensor-imu/*"
 FILES_${PN} += "/usr/bin/*"
-
-FILES_${PN}-firmware += "/lib/firmware/*"
-FILES_${PN}-adsp += "/usr/share/data/adsp/*"
+FILES_${PN}-firmware = "/lib/firmware/*"
 
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 INHIBIT_PACKAGE_STRIP = "1"
 
-PACKAGES = "${PN}"
+PACKAGES = "${PN} ${PN}-firmware"
+RPROVIDES_${PN}-firmware = "${PN}-firmware"
+
 DEPENDS_${PN} = "adsprpc"
-RDEPENDS_${PN} = "adsprpc libgcc glibc"
+RDEPENDS_${PN} = "adsprpc sdk-add-on-adsp libgcc glibc"
 
 do_install_append() {
     dest=/lib/firmware
@@ -36,10 +36,6 @@ do_install_append() {
     install -d ${D}${dest}
     install -m 0644 ${WORKDIR}/flight_controller/krait/libs/*.* -D ${D}${dest}
 
-    dest=/usr/share/data/adsp
-    install -d ${D}${dest}
-    install -m 0755 ${WORKDIR}/flight_controller/hexagon/libs/*.* -D ${D}${dest}
-     
     dest=${DEPLOY_DIR_IMAGE}/out/sdk/
     install -d ${dest}
     install ${WORKSPACE}/qcom_flight_controller_hexagon_sdk_add_on.zip ${dest}
@@ -60,8 +56,6 @@ do_install_append() {
 }
 
 INSANE_SKIP_${PN}-firmware += "arch"
-INSANE_SKIP_${PN}-adsp += "arch"
-INSANE_SKIP_${PN}-adsp += "already-stripped"
 INSANE_SKIP_${PN} += "textrel"
 INSANE_SKIP_${PN} += "libdir"
 INSANE_SKIP_${PN} += "ldflags"
