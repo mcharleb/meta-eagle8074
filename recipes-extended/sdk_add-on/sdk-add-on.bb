@@ -24,6 +24,7 @@ INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 INHIBIT_PACKAGE_STRIP = "1"
 
 PACKAGES = "${PN}"
+DEPENDS_${PN} = "adsprpc"
 RDEPENDS_${PN} = "adsprpc libgcc glibc"
 
 do_install_append() {
@@ -60,6 +61,8 @@ do_install_append() {
 
 INSANE_SKIP_${PN}-firmware += "arch"
 INSANE_SKIP_${PN}-adsp += "arch"
+INSANE_SKIP_${PN}-adsp += "already-stripped"
 INSANE_SKIP_${PN} += "textrel"
 INSANE_SKIP_${PN} += "libdir"
 INSANE_SKIP_${PN} += "ldflags"
+INSANE_SKIP_${PN} += "dev-deps"
