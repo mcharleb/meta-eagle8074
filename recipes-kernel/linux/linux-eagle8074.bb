@@ -1,8 +1,11 @@
 # This file was derived from oe-core/meta-qr-linux/meta-som8064/recipes-kernel/linux/linux-qr-som8064.bb
+SECTION = "kernel"
+LICENSE = "GPLv2"
+
+LIC_FILES_CHKSUM = "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
 
 inherit kernel
 inherit kernel-module-split
-require recipes-kernel/linux/linux-yocto.inc
 
 DEPENDS += "dtbtool-native"
 
@@ -27,23 +30,22 @@ SRC_URI[initrd.sha256sum] = "d177ba515258df5fda6d34043261d694026c9e27f1ef8ec1667
 KERNEL_SRC_PATH = "/usr/src/${MACHINE}"
 
 COMPATIBLE_MACHINE_eagle8074 = "eagle8074"
+LINUX_KERNEL_TYPE = "standard"
 LINUX_VERSION ?= "3.4"
 LINUX_VERSION_EXTENSION ?= "-${MACHINE}"
 
-KERNEL_BUILD_DIR = "${WORKDIR}/linux-eagle8074-standard-build"
+KERNEL_BUILD_DIR = "${WORKDIR}/build"
 
-PACKAGES_DYNAMIC += "^kernel-dtb-.*"
-PACKAGES_DYNAMIC += "^kernel-dev-.*"
-
-PACKAGES += "kernel-dtb"
+#PACKAGES_DYNAMIC += "^kernel-dev-.*"
 
 PR = "r0"
 PV = "${LINUX_VERSION}"
 
-PROVIDES += "kernel-dtb kernel-dev kernel-module-cfg80211"
+PROVIDES += "kernel-dev kernel-module-cfg80211"
 
-FILES_kernel-dtb = "/usr/share/eagle8074/devicetree.img"
-FILES_kernel = "/boot/*"
+#FILES_kernel-image = "/boot/zImage-3.4.0-eagle8074"
+#FILES_kernel-image += "/boot/devicetree-${LINUX_VERSION}.0${LINUX_VERSION_EXTENSION}.img"
+#FILES_kernel-image += "/boot/initrd.img"
 
 do_removegit () {
    rm -rf "${S}/.git"
@@ -52,19 +54,22 @@ do_removegit () {
 }
 
 do_install_append() {
-    install -d ${D}/usr/share/eagle8074
-    install -d ${D}/boot
-    install ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage ${D}/boot/zImage
-    install ${WORKDIR}/initrd.img ${D}/boot/initrd.img
     make headers_install INSTALL_HDR_PATH="${D}/${KERNEL_SRC_PATH}"
-    echo "Building device tree ${QRLINUX_KERNEL_DEVICE_TREE}..."
-    oe_runmake ${QRLINUX_DTB}
-    dtbtool -o "${D}/usr/share/eagle8074/devicetree.img" -p "${KERNEL_BUILD_DIR}/scripts/dtc/" -v "${KERNEL_BUILD_DIR}/arch/arm/boot/"
+}
+
+do_deploy_append() {
+    #install ${KERNEL_BUILD_DIR}/arch/arm/boot/zImage ${D}/boot/eagle8074/zImage
+    install ${WORKDIR}/initrd.img ${DEPLOYDIR}/initrd.img
+    echo "Building Eagle device tree..."
+    oe_runmake ${EAGLE_KERNEL_DTB}
+    dtbtool -o "${DEPLOYDIR}/devicetree-${PV}-${PR}-${MACHINE}-${DATETIME}.img" -p "${KERNEL_BUILD_DIR}/scripts/dtc/" -v "${KERNEL_BUILD_DIR}/arch/arm/boot/"
+    cd ${DEPLOYDIR}
+    rm -f devicetree.img
+    ln -s devicetree-${PV}-${PR}-${MACHINE}-${DATETIME}.img devicetree.img
 }
 
 sysroot_stage_all_append() {
          sysroot_stage_dir "${D}/${KERNEL_SRC_PATH}" "${SYSROOT_DESTDIR}/${KERNEL_SRC_PATH}"
-         sysroot_stage_dir "${D}/usr/share/eagle8074" "${SYSROOT_DESTDIR}/usr/share/eagle8074"
 }
 
 addtask do_removegit after do_unpack before do_kernel_checkout

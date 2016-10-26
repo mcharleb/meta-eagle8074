@@ -24,4 +24,7 @@ BBLAYERS ?= " \
 BBLAYERS_NON_REMOVABLE ?= " \
   ${TOPDIR}/../poky/meta \
   ${TOPDIR}/../poky/meta-yocto \
+  ${TOPDIR}/../poky/meta-openembedded/meta-oe \
+  ${TOPDIR}/../poky/meta-eagle8074 \
+  ${TOPDIR}/../poky/meta-qti \
   "
