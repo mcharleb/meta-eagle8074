@@ -6,7 +6,9 @@ PR = "r1"
 PV = "1.0"
 
 FILESPATH =+ "${WORKSPACE}:"
-SRC_URI  = "file://qcom_flight_controller_hexagon_sdk_add_on.zip"
+SRC_URI  = "file://qcom_flight_controller_hexagon_sdk_add_on.zip;subdir=sdk_add_on-${PV}"
+
+S = "${WORKDIR}/sdk_add_on-${PV}"
 
 INSANE_SKIP_${PN} += "installed-vs-shipped"
 
@@ -30,29 +32,25 @@ RDEPENDS_${PN} = "adsprpc sdk-add-on-adsp libgcc glibc"
 do_install_append() {
     dest=/lib/firmware
     install -d ${D}${dest}
-    install -m 0644 ${WORKDIR}/images/firmware/*.* -D ${D}${dest}
+    install -m 0644 ${S}/images/firmware/*.* -D ${D}${dest}
 
     dest=/usr/lib
     install -d ${D}${dest}
-    install -m 0644 ${WORKDIR}/flight_controller/krait/libs/*.* -D ${D}${dest}
-
-    dest=${DEPLOY_DIR_IMAGE}/out/sdk/
-    install -d ${dest}
-    install ${WORKSPACE}/qcom_flight_controller_hexagon_sdk_add_on.zip ${dest}
+    install -m 0644 ${S}/flight_controller/krait/libs/*.* -D ${D}${dest}
 
     dest=/usr/tests
     install -d ${D}${dest}
-    install -m 0755 ${WORKDIR}/flight_controller/hexagon/tests/* -D ${D}${dest}
+    install -m 0755 ${S}/flight_controller/hexagon/tests/* -D ${D}${dest}
 
     dest=/usr/include/sensor-imu
     install -d ${D}${dest}
-    install -m 0755 ${WORKDIR}/flight_controller/krait/inc/sensor_datatypes.h -D ${D}${dest}
-    install -m 0755 ${WORKDIR}/flight_controller/krait/inc/SensorImu.hpp -D ${D}${dest}
-    install -m 0755 ${WORKDIR}/flight_controller/krait/inc/sensor_imu_api.h -D ${D}${dest}
+    install -m 0755 ${S}/flight_controller/krait/inc/sensor_datatypes.h -D ${D}${dest}
+    install -m 0755 ${S}/flight_controller/krait/inc/SensorImu.hpp -D ${D}${dest}
+    install -m 0755 ${S}/flight_controller/krait/inc/sensor_imu_api.h -D ${D}${dest}
 
     dest=/usr/bin
     install -d ${D}${dest}
-    install -m 0755 ${WORKDIR}/flight_controller/krait/apps/* -D ${D}${dest}
+    install -m 0755 ${S}/flight_controller/krait/apps/* -D ${D}${dest}
 }
 
 INSANE_SKIP_${PN}-firmware += "arch"
