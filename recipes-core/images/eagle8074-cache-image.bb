@@ -16,5 +16,4 @@ IMAGE_INSTALL += "mm-camera-firmware"
 # Only ar3k is copied via bbappend file
 IMAGE_INSTALL += "linux-firmware-ar3k"
 
-PACKAGE_INSTALL = "${IMAGE_INSTALL}"
-
+#PACKAGE_INSTALL = "${IMAGE_INSTALL}"
