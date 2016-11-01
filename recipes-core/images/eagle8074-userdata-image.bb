@@ -105,11 +105,6 @@ CORE_IMAGE_EXTRA_INSTALL += "opencv libopencv-core libopencv-imgproc"
 IMAGE_ROOTFS_SIZE = "524288"
 IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "" ,d)}"
 
-# Adding the kernel source add 577M to the SDK
-# Its preferable to let the developers just clone the kernel at a specific label
-# A script to clone the kernel can be provided
-# TOOLCHAIN_TARGET_TASK_append = " kernel-${MACHINE}-devsrc"
-
 PACKAGECONFIG_pn-qemu-native = ""
 
 # delete the old image files that already exist
@@ -118,5 +113,5 @@ python do_rootfs_prepend() {
 }
 
 python do_rootfs_append() {
-    os.system("ext2simg -v ${DEPLOY_DIR_IMAGE}/eagle8074-userdata-image-${MACHINE}.ext4 ${DEPLOY_DIR_IMAGE}/eagle8074-userdata-image-${MACHINE}.img")
+    os.system("ext2simg -v ${DEPLOY_DIR_IMAGE}/${PN}-${MACHINE}.ext4 ${DEPLOY_DIR_IMAGE}/${PN}-${MACHINE}.img")
 }

@@ -5,7 +5,7 @@ DEPENDS += "ext2simg-native"
 # Cache partition is 28M
 IMAGE_ROOTFS_SIZE = "28672"
 
-inherit image-empty
+inherit android-partition
 
 IMAGE_INSTALL += "adreno200-firmware"
 IMAGE_INSTALL += "mm-video-firmware"

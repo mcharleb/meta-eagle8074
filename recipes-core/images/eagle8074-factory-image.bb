@@ -5,7 +5,7 @@ DEPENDS += "ext2simg-native"
 # Factory partition is 512M
 IMAGE_ROOTFS_SIZE = "524288"
 
-inherit image-empty
+inherit android-partition
 
 #IMAGE_INSTALL += "eagle8074-factory-image"
 

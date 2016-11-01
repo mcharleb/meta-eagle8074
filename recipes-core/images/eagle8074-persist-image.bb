@@ -5,7 +5,7 @@ DEPENDS += "ext2simg-native"
 # Cache partition is 32M
 IMAGE_ROOTFS_SIZE = "32768"
 
-inherit image-empty
+inherit android-partition
 
 PACKAGE_INSTALL = "${IMAGE_INSTALL}"
 

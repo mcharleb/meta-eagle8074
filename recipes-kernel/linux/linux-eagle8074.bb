@@ -18,9 +18,8 @@ SRC_URI += "\
 	    file://eagle8074.cfg \
             file://eagle8074.scc \
             file://eagle8074-user-config.cfg \
-            file://0001-bluez.patch \
-            file://0002-bluetooth.patch \
             file://0003-gcc4-9.patch \
+            file://0004-list.patch \
            "
 SRC_URI += "https://releases.linaro.org/14.09/ubuntu/ifc6410/initrd.img-3.4.0-linaro-ifc6410;downloadfilename=initrd.img;name=initrd"
 SRC_URI[initrd.md5sum] = "d92fb01531698e30615f26efa2999c6c"
