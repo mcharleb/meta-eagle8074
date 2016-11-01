@@ -44,7 +44,7 @@ IMAGE_INSTALL += "post-boot"
 IMAGE_INSTALL += "libhardware"
 IMAGE_INSTALL += "power-hal"
 
-IMAGE_INSTALL += "ath3k-bluez"
+#IMAGE_INSTALL += "ath3k-bluez"
 IMAGE_INSTALL += "qrl-scripts"
 #IMAGE_INSTALL += "recovery"
 #IMAGE_INSTALL += "recovery-image"
