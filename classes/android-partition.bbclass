@@ -7,7 +7,7 @@ PACKAGE_INSTALL = ""
 
 inherit image
 
-IMAGE_PREPROCESS_COMMAND += "remove_extra_files"
+IMAGE_PREPROCESS_COMMAND = "remove_extra_files"
 
 # delete the old image files that already exist
 python do_rootfs_prepend() {
@@ -20,5 +20,5 @@ python remove_extra_files() {
 }
 
 python do_rootfs_append() {
-    os.system("ext2simg -v ${DEPLOY_DIR_IMAGE}/${PN}.ext4 ${DEPLOY_DIR_IMAGE}/{PN}.img")
+    os.system("ext2simg -v ${DEPLOY_DIR_IMAGE}/${PN}-${MACHINE}.ext4 ${DEPLOY_DIR_IMAGE}/${PN}-${MACHINE}.img")
 }
