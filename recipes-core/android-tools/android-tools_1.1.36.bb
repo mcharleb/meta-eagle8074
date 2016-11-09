@@ -31,7 +31,6 @@ S = "${WORKDIR}/system/core"
 B = "${S}"
 
 SRC_URI = "file://system/core/"
-SRC_URI_append_arm = " file://adb.conf"
 
 EXTRA_OECONF_arm = "--disable-shared \
     --with-host-os=${HOST_OS} \
@@ -46,7 +45,6 @@ do_install_append() {
 }
 
 do_install_append_arm() {
-	install -m 0644 ${WORKDIR}/adb.conf -D ${D}${sysconfdir}/init/adb.conf
 	for h in ${S}/include/cutils/*
 	do
 	  install -m 0644 ${S}/include/cutils/`basename ${h}` -D ${D}${includedir}/cutils/`basename ${h}`
