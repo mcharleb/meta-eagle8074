@@ -21,7 +21,7 @@ do_deploy() {
 	--ramdisk_offset ${RAMDISK_OFFSET} \
 	--cmdline "${KERNEL_CMDLINE}" \
 	--pagesize ${PAGE_SIZE} \
-	--output ${DEPLOY_DIR_IMAGE}/${MACHINE}-boot-image.img
+	--output ${DEPLOY_DIR_IMAGE}/boot-image-${MACHINE}.img
 }
 
 addtask do_deploy after do_install
