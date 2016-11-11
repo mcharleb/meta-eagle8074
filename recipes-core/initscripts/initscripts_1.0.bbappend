@@ -1,6 +1,6 @@
 FILESEXTRAPATHS_prepend_eagle8074 := "${THISDIR}/${PN}:"
 
-RDEPENDS_${PN} += "android_tools"
+RDEPENDS_${PN} += "android-tools"
 
 do_install_append_eagle8074() {
     ln -sf ../init.d/start_usb ${D}${sysconfdir}/rcS.d/S60start_usb
