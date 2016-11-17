@@ -80,6 +80,8 @@ fixme_pkg_postinst_${PN}() {
         install_conf
     fi
 
+    # FIXME!! change the hostapd via bbappend
+    #
     # Update the default hostapd file to point to the hostapd.conf in the
     # sysconfdir (e.g /etc) and the set the launch options to be "-dd"
     # Since the /etc/default/hostapd file is added by the hostapd package, we want to first
@@ -90,6 +92,9 @@ fixme_pkg_postinst_${PN}() {
         install -m 644 /tmp/hostapd.tmp /etc/default/hostapd
     fi
 
+
+    # FIXME!! This needs to be in a bbappend for dnsmasq-base
+    #
     # Append the dhcp address range to the dnsmasq.conf file. Since the /etc/dnsmasq.conf file is
     # added by the dnsmasq-base package, we want to ensure that it's hasn't already been 
     # configured prior.
