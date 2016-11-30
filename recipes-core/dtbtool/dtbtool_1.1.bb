@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://${S}/dtbtool.c;endline=28;md5=533dd85785b269cdb0c149d
 PR = "r1"
 
 FILESPATH =+ "${WORKSPACE}:"
-S = "${WORKDIR}/device/qcom/dtbtool"
+S = "${WORKDIR}/device/qcom/common/dtbtool"
 
 SRC_URI = "file://device/qcom/common/dtbtool"
 
