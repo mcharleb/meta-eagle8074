@@ -31,6 +31,7 @@ S = "${WORKDIR}/system/core"
 B = "${S}"
 
 SRC_URI = "file://system/core/"
+SRC_URI += "file://0001-gcc6.patch"
 
 EXTRA_OECONF_arm = "--disable-shared \
     --with-host-os=${HOST_OS} \

@@ -11,6 +11,7 @@ S = "${WORKDIR}/frameworks/av/"
 B = "${S}"
 
 SRC_URI = "file://frameworks/av/"
+SRC_URI += "file://0001-gcc6.patch"
 
 DEBIAN_NOAUTONAME_${PN} = "1"
 

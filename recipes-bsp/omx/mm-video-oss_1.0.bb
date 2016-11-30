@@ -10,6 +10,7 @@ B = "${S}"
 
 SRC_URI  = "file://hardware/qcom/media/"
 SRC_URI += "file://venus_v4l2.rules"
+SRC_URI += "file://0001-gcc6.patch"
 
 PACKAGES = "${PN}"
 
