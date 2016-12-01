@@ -4,12 +4,7 @@ rebake() {
 }
 
 build-eagle8074(){
-    bitbake cache-image    && \
-    bitbake factory-image  && \
-    bitbake persist-image  && \
-    bitbake recovery-image && \
-    bitbake userdata-image && \
-    bitbake lk
+    bitbake packagegroup-qti-prebuild && \
 }
 
 scriptdir=
@@ -21,5 +16,8 @@ else
 fi
 WS=$(readlink -f $scriptdir/../..)
 
-export TEMPLATECONF=${WS}/meta-eagle8074/conf 
+export TEMPLATECONF=${WS}/meta-eagle8074/conf
 source ${WS}/oe-init-build-env
+
+# add in prebuilt layer
+grep -q meta-qti-prebuilt conf/bblayers.conf || (echo 'BBLAYERS += "${TOPDIR}/../poky/meta-qti-prebuilt"' >> conf/bblayers.conf)

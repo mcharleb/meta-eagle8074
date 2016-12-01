@@ -7,6 +7,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/${LICENSE};md5=550794465ba0ec53
 FILESPATH =+ "${WORKSPACE}:"
 
 SRC_URI = "file://hardware/qcom/camera/"
+SRC_URI += "file://0002-libjpgturbo15.patch"
+SRC_URI += "file://0001-gcc6.patch"
 
 S = "${WORKDIR}/hardware/qcom/camera"
 B = "${S}"
