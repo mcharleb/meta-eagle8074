@@ -11,7 +11,9 @@ S = "${WORKDIR}/frameworks/av/"
 B = "${S}"
 
 SRC_URI = "file://frameworks/av/"
+SRC_URI += "file://system/core/include/usbhost"
 SRC_URI += "file://0001-gcc6.patch"
+SRC_URI += "file://0002-config.patch"
 
 DEBIAN_NOAUTONAME_${PN} = "1"
 
@@ -25,6 +27,7 @@ DEPENDS += "frameworks-headers"
 
 EXTRA_OECONF_append = " --with-sanitized-headers=${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
 EXTRA_OECONF_append = " --enable-target=msm8974"
+EXTRA_OECONF_append = " MTP_EXTRA_CPPFLAGS='-I${STAGING_KERNEL_DIR}/include -I${WORKDIR}/system/core/include'"
 
 INSANE_SKIP_${PN} = "dev-so"
 INSANE_SKIP_${PN} += "installed-vs-shipped"
