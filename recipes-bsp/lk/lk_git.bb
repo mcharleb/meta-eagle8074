@@ -7,12 +7,13 @@ HOMEPAGE = "https://www.codeaurora.org/gitweb/quic/la?p=kernel/lk.git"
 PROVIDES = "virtual/bootloader"
 FILESPATH =+ "${SOURCE}:"
 SRC_URI = "file://bootable/bootloader/lk"
+SRC_URI += "file://0004-morty.patch"
 
 PV       = "1.0"
 PR       = "r9"
-S = "${WORKDIR}/bootable/lk"
+S = "${WORKDIR}/bootable/bootloader/lk"
 
-PACKAGE_ARCH = "${MACHINE_ARCH}"
+#PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 MY_TARGET          = "msm8974"
 
@@ -20,7 +21,7 @@ PARALLEL_MAKE = "-j 1"
 
 BOOTLOADER_NAME        = "emmc_appsboot"
 
-EXTRA_OEMAKE = "TOOLCHAIN_PREFIX='arm-linux-gnueabihf-' ${MY_TARGET} EMMC_BOOT=1 SIGNED_KERNEL=0 ENABLE_THUMB=false "
+EXTRA_OEMAKE = "TOOLCHAIN_PREFIX='arm-oe-linux-gnueabi-' ${MY_TARGET} EMMC_BOOT=1 SIGNED_KERNEL=0 ENABLE_THUMB=false "
 
 do_compile() {
     make ${PARALLEL_MAKE} ${EXTRA_OEMAKE}

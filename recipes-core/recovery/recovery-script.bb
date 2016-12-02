@@ -5,8 +5,6 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta-eagle8074/COPYING;md5=7b4fa59a65c2be
 PR = "r0"
 PV = "1.0"
 
-inherit autotools
-
 SRC_URI = "file://install-update.sh \
     file://factory-reset.sh \
     file://qrlUpdate.conf"
