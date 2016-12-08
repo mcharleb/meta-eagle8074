@@ -11,14 +11,29 @@ IMAGE_PREPROCESS_COMMAND = "remove_extra_files"
 
 # delete the old image files that already exist
 python do_rootfs_prepend() {
-    os.system("rm -rf ${DEPLOY_DIR_IMAGE}/*${PN}*")
+    import glob, os
+
+    deploydir = d.get_var("DEPLOY_DIR_IMAGE", True)
+    pn = d.get_var("PN", True)
+    for f in glob.glob(deploydir+"/*"+pn+"*"):
+        os.remove(f)
 }
 
 python remove_extra_files() {
+    import shutil
+
     # Remove the RPM handling additions
-    os.system("rm -rf ${WORKDIR}/rootfs/etc ${WORKDIR}/rootfs/var")
+    workdir = d.get_var("WORKDIR", True)
+    shutil.rmtree(workdir+"/rootfs/etc")
+    shutil.rmtree(workdir+"/rootfs/var")
 }
 
 python do_rootfs_append() {
-    os.system("ext2simg -v ${DEPLOY_DIR_IMAGE}/${PN}-${MACHINE}.ext4 ${DEPLOY_DIR_IMAGE}/${PN}-${MACHINE}.img")
+    import os
+
+    deploydir = d.get_var("DEPLOY_DIR_IMAGE", True)
+    pn = d.get_var("PN", True)
+    machine = d.get_var("MACHINE", True)
+    rootname = deploydir+"/"+pn+"-"+machine
+    os.system("ext2simg -v "+rootname+".ext4 "+rootname+".img")
 }

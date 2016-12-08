@@ -212,9 +212,9 @@ BB_DISKMON_DIRS = "\
 # By default qemu will build with a builtin VNC server where graphical output can be
 # seen. The two lines below enable the SDL backend too. This assumes there is a
 # libsdl library available on your build system.
-PACKAGECONFIG_append_pn-qemu-native = " sdl"
-PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
-ASSUME_PROVIDED += "libsdl-native"
+#PACKAGECONFIG_append_pn-qemu-native = " sdl"
+#PACKAGECONFIG_append_pn-nativesdk-qemu = " sdl"
+#ASSUME_PROVIDED += "libsdl-native"
 
 #
 # wget timeout
@@ -226,9 +226,9 @@ FETCHCMD_wget = "/usr/bin/env wget -t 2 -T 90 -nv --passive-ftp --no-check-certi
 #
 # GCC Version
 #
-# By default jethro branch uses GCC 5.2. This sets GCC to be 4.9 instead
+# Morty branch can use 5.X or 6.2. Choosing 6.2
 #
-GCCVERSION = "4.9%"
+GCCVERSION = "6.2%"
 
 DEFAULTTUNE = "armv7at-neon"
 

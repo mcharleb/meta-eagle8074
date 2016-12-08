@@ -24,10 +24,9 @@ SRC_URI += "\
             file://0006-unresolved.patch \
             file://0006-gcc6.patch \
            "
-#SRC_URI += "https://releases.linaro.org/14.09/ubuntu/ifc6410/initrd.img-3.4.0-linaro-ifc6410;downloadfilename=initrd.img;name=initrd"
-SRC_URI += "file://initrd.img"
-#SRC_URI[initrd.md5sum] = "d92fb01531698e30615f26efa2999c6c"
-#SRC_URI[initrd.sha256sum] = "d177ba515258df5fda6d34043261d694026c9e27f1ef8ec16674fa479c5b47fb"
+SRC_URI += "https://releases.linaro.org/archive/14.09/ubuntu/ifc6410/initrd.img-3.4.0-linaro-ifc6410;downloadfilename=initrd.img;name=initrd"
+SRC_URI[initrd.md5sum] = "d92fb01531698e30615f26efa2999c6c"
+SRC_URI[initrd.sha256sum] = "d177ba515258df5fda6d34043261d694026c9e27f1ef8ec16674fa479c5b47fb"
 
 # Install headers so they don't conflict with the system headers
 KERNEL_SRC_PATH = "/usr/src/${MACHINE}"

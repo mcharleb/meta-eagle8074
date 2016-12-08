@@ -21,10 +21,14 @@ PACKAGE_INSTALL = "${IMAGE_INSTALL}"
 IMAGE_PREPROCESS_COMMAND = "move_firmware_files"
 
 python move_firmware_files() {
-    # Call function from android-partition
-    os.system("rm -rf ${WORKDIR}/rootfs/etc ${WORKDIR}/rootfs/var")
+    import shutil
+
+    # Remove the RPM handling additions
+    workdir = d.get_var("WORKDIR", True)
+    shutil.rmtree(workdir+"/rootfs/etc")
+    shutil.rmtree(workdir+"/rootfs/var")
 
     # Since we are moving /lib/firmware to a new partition, fix paths
-    os.system("mv ${WORKDIR}/rootfs/lib/firmware/* ${WORKDIR}/rootfs/")
-    os.system("rm -rf ${WORKDIR}/rootfs/lib")
+    shutil.move(workdir+"/rootfs/lib/firmware", workdir+"/rootfs/")
+    shutil.rmtree(workdir+"/rootfs/lib")
 }
