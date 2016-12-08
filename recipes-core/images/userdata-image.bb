@@ -89,9 +89,11 @@ IMAGE_INSTALL += "gstreamer1.0-plugins-good"
 
 # Kernel
 IMAGE_INSTALL += "kernel-module-wlan"
-IMAGE_INSTALL += "depmodwrapper-cross"
 IMAGE_INSTALL += "compat-wireless"
 IMAGE_INSTALL += "kernel-module-rdbg"
+
+# depmodwrapper-cross doesn't generate packages in morty
+#IMAGE_INSTALL += "depmodwrapper-cross"
 
 # Missing
 IMAGE_INSTALL += "openssl"
@@ -110,18 +112,19 @@ PACKAGECONFIG_pn-qemu-native = ""
 python do_rootfs_prepend() {
     import glob, os
 
-    deploydir = d.get_var("DEPLOY_DIR_IMAGE", True)
-    pn = d.get_var("PN", True)
+    deploydir = d.getVar("DEPLOY_DIR_IMAGE", True)
+    pn = d.getVar("PN", True)
     for f in glob.glob(deploydir+"/*"+pn+"*"):
-        os.remove(f)
+        #os.remove(f)
+        print("Removing "+f)
 }
 
 python do_rootfs_append() {
     import os
 
-    deploydir = d.get_var("DEPLOY_DIR_IMAGE", True)
-    pn = d.get_var("PN", True)
-    machine = d.get_var("MACHINE", True)
+    deploydir = d.getVar("DEPLOY_DIR_IMAGE", True)
+    pn = d.getVar("PN", True)
+    machine = d.getVar("MACHINE", True)
     rootname = deploydir+"/"+pn+"-"+machine
     os.system("ext2simg -v "+rootname+".ext4 "+rootname+".img")
 }

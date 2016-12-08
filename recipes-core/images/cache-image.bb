@@ -24,7 +24,7 @@ python move_firmware_files() {
     import shutil
 
     # Remove the RPM handling additions
-    workdir = d.get_var("WORKDIR", True)
+    workdir = d.getVar("WORKDIR", True)
     shutil.rmtree(workdir+"/rootfs/etc")
     shutil.rmtree(workdir+"/rootfs/var")
 
