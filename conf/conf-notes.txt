@@ -9,10 +9,9 @@ Builds the Eagle partitions and LK signed image.
 
 Targets to build:
 
-eagle8074-cache-image    - Firmware partition
-eagle8074-factory-image  - Factory reset partition
-eagle8074-persist-image  - Persist partition
-eagle8074-recovery-image - Recovery partition
-eagle8074-userdata-image - Rootfs
-lk                       - LK signed image
+boot-image     - Boot partition
+cache-image    - Firmware partition
+persist-image  - Persist partition
+userdata-image - Rootfs
+lk             - LK signed image
 

@@ -4,12 +4,14 @@ rebake() {
 }
 
 build-eagle8074(){
+    bitbake boot-image     && \
     bitbake cache-image    && \
-    bitbake factory-image  && \
     bitbake persist-image  && \
-    bitbake recovery-image && \
-    bitbake userdata-image && \
-    bitbake lk
+    bitbake userdata-image
+
+    # Unsupported
+    #bitbake factory-image  && \
+    #bitbake recovery-image && \
 }
 
 scriptdir=
