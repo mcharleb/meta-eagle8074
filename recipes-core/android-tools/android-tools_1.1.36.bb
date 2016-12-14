@@ -32,6 +32,7 @@ B = "${S}"
 
 SRC_URI = "file://system/core/"
 SRC_URI += "file://0001-gcc6.patch"
+SRC_URI += "file://0002-HAVE_SYS_UIO_H.patch"
 
 EXTRA_OECONF_arm = "--disable-shared \
     --with-host-os=${HOST_OS} \
@@ -39,6 +40,8 @@ EXTRA_OECONF_arm = "--disable-shared \
 
 INSANE_SKIP_${PN} = "installed-vs-shipped"
 FILES_${PN}-dev += "${includedir}/cutils"
+
+CXXFLAGS_append = " -std=gnu++11"
 
 do_install_append() {
 	install -m 0644 ${S}/include/private/android_filesystem_capability.h -D ${D}${includedir}/private/android_filesystem_capability.h
