@@ -34,10 +34,18 @@ do_install() {
     cp ${WORKDIR}/live555-${PV}/UsageEnvironment/lib* ${D}${libdir}
     cp ${WORKDIR}/live555-${PV}/BasicUsageEnvironment/lib* ${D}${libdir}
     cd ${D}${libdir}
-    ln -fs libliveMedia.so* libliveMedia.so    
-    ln -fs libgroupsock.so* libgroupsock.so
-    ln -fs libUsageEnvironment.so* libUsageEnvironment.so
-    ln -fs libBasicUsageEnvironment.so* libBasicUsageEnvironment.so
+
+    ln -fs libliveMedia.so.49.* libliveMedia.so
+    ln -fs libliveMedia.so.49.* libliveMedia.so.49
+
+    ln -fs libgroupsock.so.7.* libgroupsock.so
+    ln -fs libgroupsock.so.7.* libgroupsock.so.7
+
+    ln -fs libUsageEnvironment.so.3.* libUsageEnvironment.so
+    ln -fs libUsageEnvironment.so.3.* libUsageEnvironment.so.3
+
+    ln -fs libBasicUsageEnvironment.so.1.* libBasicUsageEnvironment.so
+    ln -fs libBasicUsageEnvironment.so.1.* libBasicUsageEnvironment.so.1
 
     install -d ${D}${includedir}/live555/
     install -m 0755 ${WORKDIR}/live555-${PV}/liveMedia/include/*.hh ${D}${includedir}/live555

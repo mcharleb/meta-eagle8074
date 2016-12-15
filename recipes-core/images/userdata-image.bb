@@ -29,6 +29,7 @@ IMAGE_INSTALL += "file"
 # From QRLinux
 IMAGE_INSTALL += "camera-hal"
 IMAGE_INSTALL += "mm-video-oss"
+IMAGE_INSTALL += "mm-video-fpv"
 IMAGE_INSTALL += "hostapd"
 IMAGE_INSTALL += "libnl"
 IMAGE_INSTALL += "dnsmasq"
