@@ -24,4 +24,14 @@ fi
 WS=$(readlink -f $scriptdir/../..)
 
 export TEMPLATECONF=${WS}/meta-eagle8074/conf 
-source ${WS}/oe-init-build-env
+
+if [ "$1" = "--prebuild" ]; then
+build-prebuilts(){
+    bitbake packagegroup-qti-prebuild
+}
+    source ${WS}/oe-init-build-env prebuild
+    echo >> conf/bblayers.conf
+    echo "BBLAYERS += \"\${TOPDIR}/../poky/meta-qti-prebuilt \"" >> conf/bblayers.conf
+else
+    source ${WS}/oe-init-build-env build
+fi

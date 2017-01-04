@@ -9,6 +9,9 @@ S = "${WORKDIR}/hardware/qcom/media"
 B = "${S}"
 
 SRC_URI  = "file://hardware/qcom/media/"
+SRC_URI += "file://hardware/qcom/display/libcopybit"
+SRC_URI += "file://hardware/qcom/display/libgralloc"
+SRC_URI += "file://adreno200/include/private/C2D"
 SRC_URI += "file://venus_v4l2.rules"
 SRC_URI += "file://0001-gcc6.patch"
 
@@ -30,9 +33,9 @@ INSANE_SKIP_${PN} = "dev-so"
 INSANE_SKIP_${PN} += "installed-vs-shipped"
 
 EXTRA_OECONF = "--with-sanitized-headers=${STAGING_DIR_TARGET}/usr/src/${MACHINE}/include"
-CPPFLAGS_append += "-I${WORKSPACE}/hardware/qcom/display/libcopybit"
-CPPFLAGS_append += "-I${WORKSPACE}/hardware/qcom/display/libgralloc"
-CPPFLAGS_append += "-I${WORKSPACE}/adreno200/include/private/C2D"
+CPPFLAGS_append += "-I${WORKDIR}/hardware/qcom/display/libcopybit"
+CPPFLAGS_append += "-I${WORKDIR}/hardware/qcom/display/libgralloc"
+CPPFLAGS_append += "-I${WORKDIR}/adreno200/include/private/C2D"
 CPPFLAGS_append += "-I${STAGING_INCDIR}/live555"
 
 do_install_append() {
